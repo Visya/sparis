@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput
 } from "react-native";
+import axios from "axios";
 import { white } from "ansi-colors";
 
 export default class App extends React.Component {
@@ -20,6 +21,17 @@ export default class App extends React.Component {
       submitted: true,
       message: `You submitted first-name: ${firstName} and last-name: ${lastName}`
     });
+
+    // Example request were we would do the submit request
+
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/todos/1")
+    //   .then(res => {
+    //     console.log(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   render() {
