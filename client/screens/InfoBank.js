@@ -5,39 +5,34 @@ import {
   TouchableOpacity,
   TextInput,
   AsyncStorage,
-  Image
+  Button
 } from "react-native";
-import HeaderLeft from "../components/HeaderLeft";
-import HeaderRight from "../components/HeaderRight";
-import { ECards, ECardsLabels, ImageStyle } from "../utils/enums";
+import { ECards, ECardsLabels, EBankAccounts } from "../utils/enums";
 
-class InfoTicketScreen extends React.Component {
+class InfoBankScreen extends React.Component {
   constructor() {
     super();
     this.state = {
       cardNumber: "",
-      ticketType: ""
+      type: ""
     };
   }
 
-  static navigationOptions = ({ navigation }) => {
-    const { navigate } = navigation;
-    return {
-      title: "Uppgifter - Biljett",
-      headerLeft: <HeaderLeft navigate={navigate} />,
-      headerRight: <HeaderRight navigate={navigate} />
-    };
-  };
-  /*
   static navigationOptions = {
     title: "Spåris",
     headerTintColor: "white",
     headerBackTitle: null,
     headerStyle: {
       backgroundColor: "#D26283"
-    }
+    },
+    headerRight: (
+      <Button
+        onPress={() => alert("This is a button!")}
+        title="Info"
+        color="#fff"
+      />
+    )
   };
-  */
 
   navigateAndSave() {
     const { navigate } = this.props.navigation;
@@ -49,7 +44,7 @@ class InfoTicketScreen extends React.Component {
           "ticketData",
           JSON.stringify({
             cardNumber: this.state.cardNumber,
-            ticketType: JSON.stringify(this.state.ticketType)
+            type: JSON.stringify(this.state.type)
           })
         );
       } catch (error) {
@@ -59,7 +54,7 @@ class InfoTicketScreen extends React.Component {
     };
 
     saveTicketData();
-    navigate("InfoBank", {});
+    navigate("Notifications", {});
   }
 
   render() {
@@ -85,12 +80,8 @@ class InfoTicketScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
-        <Image
-          style={ImageStyle}
-          source={require("../assets/img/ticket.png")}
-        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
-          Dina uppgifter - biljett
+          Dina uppgifter - bankkonto
         </Text>
         <Text
           style={{
@@ -122,11 +113,7 @@ class InfoTicketScreen extends React.Component {
               alignItems: "center"
             }}
           >
-            <Text>
-              {this.state.ticketType
-                ? this.state.ticketType
-                : "Välj en korttyp"}
-            </Text>
+            <Text>{this.state.type ? this.state.type : "Välj en korttyp"}</Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
         </TouchableOpacity>
@@ -141,13 +128,13 @@ class InfoTicketScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {ECardsLabels.map(card => {
+            {EBankAccounts.map(account => {
               return (
                 <TouchableOpacity
-                  key={card}
+                  key={account}
                   onPress={() => {
                     this.setState({
-                      ticketType: card,
+                      type: account,
                       dropdown: false
                     });
                   }}
@@ -161,13 +148,13 @@ class InfoTicketScreen extends React.Component {
                     }}
                   >
                     <Text
-                      key={card}
+                      key={account}
                       style={{
                         color: "#222",
                         fontSize: 16
                       }}
                     >
-                      {card}
+                      {account}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -188,9 +175,26 @@ class InfoTicketScreen extends React.Component {
             flexDirection: "row",
             alignItems: "center"
           }}
-          placeholder="Kortnummer"
-          onChangeText={text => this.setState({ cardNumber: text })}
-          value={this.state.cardNumber}
+          placeholder="Clearingnr"
+          onChangeText={text => this.setState({ clearingNumber: text })}
+          value={this.state.clearingNumber}
+        />
+
+        <TextInput
+          underlineColorAndroid="rgba(0,0,0,0)"
+          style={{
+            marginTop: 20,
+            borderWidth: 1,
+            borderColor: "lightgrey",
+            borderRadius: 5,
+            padding: 16,
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center"
+          }}
+          placeholder="Kontonummer"
+          onChangeText={text => this.setState({ account: text })}
+          value={this.state.account}
         />
 
         <View
@@ -227,4 +231,4 @@ class InfoTicketScreen extends React.Component {
   }
 }
 
-export default InfoTicketScreen;
+export default InfoBankScreen;

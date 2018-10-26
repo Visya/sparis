@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
           nästa skärm anger du dina personuppgifter som sedan används för att
           fylla i formulären åt dig - smart va?
         </Text>
-        <TouchableOpacity onPress={() => navigate("Notifications", {})}>
+        <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
           <View
             style={{
               padding: 18,

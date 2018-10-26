@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, View, Text, TextInput, TouchableOpacity } from "react-native";
 import {
-  ETravelMethodsLabels,
-  ETravelMethods,
-  EMetroBranches,
-  ImageStyle
-} from "../utils/enums";
+  View,
+  Text,
+  TouchableOpacity,
+  AsyncStorage,
+  Image
+} from "react-native";
+import { ETravelTypesLabels, EMetroLines, ImageStyle } from "../utils/enums";
 
 class NotificationsScreen extends React.Component {
   constructor() {
@@ -13,14 +14,44 @@ class NotificationsScreen extends React.Component {
     this.state = {
       value: "",
       method: "",
-      selectedBranches: []
+      selectedLines: []
     };
   }
-
   static navigationOptions = {
     title: "",
     headerLeft: null
+    /*
+    title: "Spåris",
+    headerTintColor: "white",
+    headerBackTitle: null,
+    headerStyle: {
+      backgroundColor: "#D26283"
+    }
+*/
   };
+
+  navigateAndSave() {
+    const { navigate } = this.props.navigation;
+    const { method } = this.state;
+
+    const saveNotificationData = async method => {
+      try {
+        await AsyncStorage.setItem(
+          "notificationData",
+          JSON.stringify({
+            method: this.state.method,
+            branches: JSON.stringify(this.state.selectedLines)
+          })
+        );
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+    };
+
+    saveNotificationData();
+    navigate("Compensation", {});
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -57,7 +88,7 @@ class NotificationsScreen extends React.Component {
             marginTop: 20
           }}
         >
-          {ETravelMethodsLabels.map(method => {
+          {ETravelTypesLabels.map(method => {
             return (
               <TouchableOpacity
                 key={method}
@@ -140,13 +171,13 @@ class NotificationsScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {EMetroBranches.map(branch => {
+            {EMetroLines.map(line => {
               return (
                 <TouchableOpacity
-                  key={branch}
+                  key={line}
                   onPress={() => {
                     this.setState(prevState => ({
-                      selectedBranches: [...prevState.selectedBranches, branch]
+                      selectedLines: [...prevState.selectedLines, line]
                     }));
                   }}
                 >
@@ -154,9 +185,7 @@ class NotificationsScreen extends React.Component {
                     style={{
                       padding: 10,
 
-                      backgroundColor: this.state.selectedBranches.includes(
-                        branch
-                      )
+                      backgroundColor: this.state.selectedLines.includes(line)
                         ? "#222"
                         : "#f3f3f3",
                       marginBottom: 10,
@@ -164,15 +193,15 @@ class NotificationsScreen extends React.Component {
                     }}
                   >
                     <Text
-                      key={branch}
+                      key={line}
                       style={{
-                        color: this.state.selectedBranches.includes(branch)
+                        color: this.state.selectedLines.includes(line)
                           ? "white"
                           : "#222",
                         fontSize: 16
                       }}
                     >
-                      {branch} linjen
+                      {line} linjen
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -186,9 +215,9 @@ class NotificationsScreen extends React.Component {
             alignItems: "center"
           }}
         >
-          {this.state.selectedBranches.length > 0 && (
+          {this.state.selectedLines.length > 0 && (
             <TouchableOpacity
-              onPress={() => this.setState({ selectedBranches: [] })}
+              onPress={() => this.setState({ selectedLines: [] })}
               style={{
                 borderRadius: 5,
                 padding: 10,
@@ -198,7 +227,7 @@ class NotificationsScreen extends React.Component {
               <Text style={{ color: "dodgerblue", fontSize: 16 }}>Rensa</Text>
             </TouchableOpacity>
           )}
-          <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
+          <TouchableOpacity onPress={() => this.navigateAndSave()}>
             <View
               style={{
                 padding: 15,
