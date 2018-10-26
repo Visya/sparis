@@ -5,4 +5,6 @@ export const ETravelMethods = {
   Spårvagn: 4
 };
 
-export const ETravelMethodsLabels = ["Tåg", "JärnVäg", "Buss", "Spårvagn"];
+export const ETravelMethodsLabels = ["Tåg", "Järnväg", "Buss", "Spårvagn"];
+
+export const EMetroBranches = ["Blå", "Röd", "Grön", "Gul"];
