@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { ECards, ECardsLabels } from "../utils/enums";
 
-class InfoTicketScreen extends React.Component {
+class CompensationScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -18,7 +18,7 @@ class InfoTicketScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Uppgifter - Biljett"
+    title: "Förseningsersättning"
   };
 
   navigateAndSave() {
@@ -41,7 +41,7 @@ class InfoTicketScreen extends React.Component {
     };
 
     saveTicketData();
-    navigate("Compensation", {});
+    navigate("InfoTicket", {});
   }
 
   render() {
@@ -68,7 +68,7 @@ class InfoTicketScreen extends React.Component {
         }}
       >
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
-          Dina uppgifter - biljett
+          Be om Förseningsersättning
         </Text>
         <Text
           style={{
@@ -204,4 +204,4 @@ class InfoTicketScreen extends React.Component {
   }
 }
 
-export default InfoTicketScreen;
+export default CompensationScreen;

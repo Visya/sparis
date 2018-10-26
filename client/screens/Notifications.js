@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import {
   ETravelMethodsLabels,
   ETravelMethods,
@@ -19,6 +25,29 @@ class NotificationsScreen extends React.Component {
   static navigationOptions = {
     title: "Notifikationer"
   };
+
+  navigateAndSave() {
+    const { navigate } = this.props.navigation;
+    const { method } = this.state;
+
+    const saveNotificationData = async method => {
+      try {
+        await AsyncStorage.setItem(
+          "notificationData",
+          JSON.stringify({
+            method: this.state.method,
+            branches: JSON.stringify(this.state.selectedBranches)
+          })
+        );
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+    };
+
+    saveNotificationData();
+    navigate("InfoTicket", {});
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -192,7 +221,7 @@ class NotificationsScreen extends React.Component {
               <Text style={{ color: "dodgerblue", fontSize: 16 }}>Rensa</Text>
             </TouchableOpacity>
           )}
-          <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
+          <TouchableOpacity onPress={() => this.navigateAndSave()}>
             <View
               style={{
                 padding: 15,
