@@ -192,14 +192,14 @@ class NotificationsScreen extends React.Component {
               <Text style={{ color: "dodgerblue", fontSize: 16 }}>Rensa</Text>
             </TouchableOpacity>
           )}
-          <TouchableOpacity onPress={() => navigate("Notifications", {})}>
+          <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
             <View
               style={{
                 padding: 15,
                 width: 250,
                 borderRadius: 5,
                 backgroundColor: "#D26283",
-                marginTop: !this.state.dropdown ? 50 : 15
+                marginTop: !this.state.dropdown ? 50 : 35
               }}
             >
               <Text
