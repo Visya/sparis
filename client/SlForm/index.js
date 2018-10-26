@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { WebView } from 'react-native';
+import React, { Component } from "react";
+import { WebView } from "react-native";
 
-import { createScript, testData } from './create-script';
+import { createScript, testData } from "./create-script";
 
 class SlForm extends Component {
   render() {
@@ -10,10 +10,13 @@ class SlForm extends Component {
     return (
       <WebView
         useWebKit={true}
-        source={{ uri: 'https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning' }}
+        source={{
+          uri:
+            "https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning"
+        }}
         style={{ marginTop: 20 }}
         injectedJavaScript={createScript(data)}
-        onMessage={ (event) => console.log(event.nativeEvent.data) }
+        onMessage={event => console.log(event.nativeEvent.data)}
         javaScriptEnabled={true}
       />
     );
