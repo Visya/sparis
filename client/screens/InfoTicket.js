@@ -13,7 +13,7 @@ class InfoTicketScreen extends React.Component {
     super();
     this.state = {
       cardNumber: "",
-      cardType: ""
+      ticketType: ""
     };
   }
 
@@ -36,7 +36,7 @@ class InfoTicketScreen extends React.Component {
           "ticketData",
           JSON.stringify({
             cardNumber: this.state.cardNumber,
-            cardType: JSON.stringify(this.state.cardType)
+            ticketType: JSON.stringify(this.state.ticketType)
           })
         );
       } catch (error) {
@@ -106,7 +106,9 @@ class InfoTicketScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.cardType ? this.state.cardType : "Välj en korttyp"}
+              {this.state.ticketType
+                ? this.state.ticketType
+                : "Välj en korttyp"}
             </Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
@@ -128,7 +130,7 @@ class InfoTicketScreen extends React.Component {
                   key={card}
                   onPress={() => {
                     this.setState({
-                      cardType: card,
+                      ticketType: card,
                       dropdown: false
                     });
                   }}

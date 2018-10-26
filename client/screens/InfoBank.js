@@ -14,7 +14,7 @@ class InfoBankScreen extends React.Component {
     super();
     this.state = {
       cardNumber: "",
-      accountType: ""
+      type: ""
     };
   }
 
@@ -44,7 +44,7 @@ class InfoBankScreen extends React.Component {
           "ticketData",
           JSON.stringify({
             cardNumber: this.state.cardNumber,
-            accountType: JSON.stringify(this.state.accountType)
+            type: JSON.stringify(this.state.type)
           })
         );
       } catch (error) {
@@ -113,11 +113,7 @@ class InfoBankScreen extends React.Component {
               alignItems: "center"
             }}
           >
-            <Text>
-              {this.state.accountType
-                ? this.state.accountType
-                : "Välj en korttyp"}
-            </Text>
+            <Text>{this.state.type ? this.state.type : "Välj en korttyp"}</Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
         </TouchableOpacity>
@@ -138,7 +134,7 @@ class InfoBankScreen extends React.Component {
                   key={account}
                   onPress={() => {
                     this.setState({
-                      accountType: account,
+                      type: account,
                       dropdown: false
                     });
                   }}
@@ -197,8 +193,8 @@ class InfoBankScreen extends React.Component {
             alignItems: "center"
           }}
           placeholder="Kontonummer"
-          onChangeText={text => this.setState({ accountNumber: text })}
-          value={this.state.accountNumber}
+          onChangeText={text => this.setState({ account: text })}
+          value={this.state.account}
         />
 
         <View
