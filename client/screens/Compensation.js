@@ -6,7 +6,13 @@ import {
   TextInput,
   AsyncStorage
 } from "react-native";
-import { ECards, ECardsLabels } from "../utils/enums";
+import {
+  ECards,
+  ECardsLabels,
+  ETramBranches,
+  EMetroBranches,
+  EStations
+} from "../utils/enums";
 
 class CompensationScreen extends React.Component {
   constructor() {
@@ -83,6 +89,7 @@ class CompensationScreen extends React.Component {
           quisquam.
         </Text>
 
+        {/* Branch you were going on */}
         <TouchableOpacity
           onPress={() =>
             this.setState({ dropdown: this.state.dropdown ? false : true })
@@ -101,9 +108,9 @@ class CompensationScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.cardType
-                ? this.state.cardType
-                : "Välj ett alternativ"}
+              {this.state.tramBranch
+                ? this.state.tramBranch
+                : "Välj en spårvagnslinje"}
             </Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
@@ -119,13 +126,13 @@ class CompensationScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {ECardsLabels.map(card => {
+            {EMetroBranches.map(branch => {
               return (
                 <TouchableOpacity
-                  key={card}
+                  key={branch}
                   onPress={() => {
                     this.setState({
-                      cardType: card,
+                      tramBranch: branch,
                       dropdown: false
                     });
                   }}
@@ -139,13 +146,12 @@ class CompensationScreen extends React.Component {
                     }}
                   >
                     <Text
-                      key={card}
                       style={{
                         color: "#222",
                         fontSize: 16
                       }}
                     >
-                      {card}
+                      {branch}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -154,21 +160,147 @@ class CompensationScreen extends React.Component {
           </View>
         )}
 
-        <TextInput
-          style={{
-            marginTop: 20,
-            borderWidth: 1,
-            borderColor: "lightgrey",
-            borderRadius: 5,
-            padding: 16,
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center"
-          }}
-          placeholder="Kortnummer"
-          onChangeText={text => this.setState({ cardNumber: text })}
-          value={this.state.cardNumber}
-        />
+        {/* Destination */}
+        <TouchableOpacity
+          onPress={() =>
+            this.setState({ dropdown2: this.state.dropdown2 ? false : true })
+          }
+        >
+          <View
+            style={{
+              marginTop: 20,
+              borderWidth: 1,
+              borderColor: "lightgrey",
+              borderRadius: 5,
+              padding: 16,
+              justifyContent: "space-between",
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <Text>
+              {this.state.startStation
+                ? this.state.startStation
+                : "Din startstation"}
+            </Text>
+            {this.state.dropdown2 ? <Text>-</Text> : <Text>+</Text>}
+          </View>
+        </TouchableOpacity>
+
+        {this.state.dropdown2 && (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "lightgrey",
+              borderRadius: 5,
+              padding: 10,
+              marginTop: 10
+            }}
+          >
+            {EStations.map(station => {
+              return (
+                <TouchableOpacity
+                  key={station}
+                  onPress={() => {
+                    this.setState({
+                      startStation: station,
+                      dropdown2: false
+                    });
+                  }}
+                >
+                  <View
+                    style={{
+                      padding: 10,
+                      backgroundColor: "#f3f3f3",
+                      marginBottom: 10,
+                      borderRadius: 3
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#222",
+                        fontSize: 16
+                      }}
+                    >
+                      {station}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
+
+        {/* Endstation */}
+        <TouchableOpacity
+          onPress={() =>
+            this.setState({ dropdown3: this.state.dropdown3 ? false : true })
+          }
+        >
+          <View
+            style={{
+              marginTop: 20,
+              borderWidth: 1,
+              borderColor: "lightgrey",
+              borderRadius: 5,
+              padding: 16,
+              justifyContent: "space-between",
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <Text>
+              {this.state.endStation
+                ? this.state.endStation
+                : "Din slutstation"}
+            </Text>
+            {this.state.dropdown3 ? <Text>-</Text> : <Text>+</Text>}
+          </View>
+        </TouchableOpacity>
+
+        {this.state.dropdown3 && (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "lightgrey",
+              borderRadius: 5,
+              padding: 10,
+              marginTop: 10
+            }}
+          >
+            {EStations.map(station => {
+              return (
+                <TouchableOpacity
+                  key={station}
+                  onPress={() => {
+                    this.setState({
+                      endStation: station,
+                      dropdown3: false
+                    });
+                  }}
+                >
+                  <View
+                    style={{
+                      padding: 10,
+                      backgroundColor: "#f3f3f3",
+                      marginBottom: 10,
+                      borderRadius: 3
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#222",
+                        fontSize: 16
+                      }}
+                    >
+                      {station}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
 
         <View
           style={{

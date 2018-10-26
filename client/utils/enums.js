@@ -9,6 +9,8 @@ export const ETravelMethodsLabels = ["Tåg", "Järnväg", "Buss", "Spårvagn"];
 
 export const EMetroBranches = ["Blå", "Röd", "Grön", "Gul"];
 
+export const ETramBranches = ["Blå", "Röd", "Grön", "Gul"];
+
 export const ECardsLabels = ["Månadskort", "Klippkort", "App"];
 
 export const ECards = {
@@ -16,3 +18,11 @@ export const ECards = {
   Klippkort: 2,
   App: 3
 };
+
+export const EStations = [
+  "Stockholm Central",
+  "Åre",
+  "Västerås",
+  "Malmö",
+  "Göteborg"
+];

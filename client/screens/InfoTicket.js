@@ -101,9 +101,7 @@ class InfoTicketScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.cardType
-                ? this.state.cardType
-                : "Välj ett alternativ"}
+              {this.state.cardType ? this.state.cardType : "Välj en korttyp"}
             </Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
