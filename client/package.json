@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "expo": "^30.0.1",
-    "react": "16.4.0",
-    "react-native": "https://github.com/expo/react-native/archive/v0.55.4.tar.gz",
+    "expo": "^30.0.0",
+    "react": "^16.4.0",
+    "react-native": "https://github.com/expo/react-native/archive/v0.56.0.tar.gz",
     "react-navigation": "^2.18.1",
-    "eslint": "3.17.0"
+    "eslint": "^3.17.0"
   }
 }
