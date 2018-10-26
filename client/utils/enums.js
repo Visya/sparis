@@ -1,17 +1,24 @@
 export const ETravelMethods = {
-  Tåg: 1,
+  Tunnelbana: 1,
   Järnväg: 2,
   Buss: 3,
   Spårvagn: 4
 };
 
-export const ETravelMethodsLabels = ["Tåg", "Järnväg", "Buss", "Spårvagn"];
+export const ETravelTypesLabels = ["Tunnelbana", "Järnväg", "Buss", "Spårvagn"];
 
-export const EMetroBranches = ["Blå", "Röd", "Grön", "Gul"];
+export const ETravelTypes = ["TRAM", "TRAIN", "BUS", "SHIP", "METRO"];
 
-export const ETramBranches = ["Blå", "Röd", "Grön", "Gul"];
+export const EMetroLines = ["Blå", "Röd", "Grön", "Gul"];
 
-export const ECardsLabels = ["Månadskort", "Klippkort", "App"];
+export const ECardsLabels = [
+  "30-dagarsbiljett, vuxen",
+  "30 - dagarsbiljett, pensionär, student, ungdom",
+  "90-dagarsbiljett, vuxen",
+  "90 - dagarsbiljett, pensionär, student, ungdom",
+  "Årsbiljett, vuxen",
+  "Årsbiljett, pensionär, student, ungdom"
+];
 
 export const ECards = {
   Månadskort: 1,
@@ -28,10 +35,16 @@ export const EStations = [
 ];
 
 export const ETimeFrames = [
-  "Nu",
-  "Igår",
-  "Inom 3 dagar",
-  "Över en vecka sedan"
+  "20-39 minuter",
+  "40-59 minuter",
+  "60 minuter eller mer"
 ];
 
 export const EBankAccounts = ["Bankgiro", "Plusgiro", "Bankkonto"];
+
+export const ImageStyle = {
+  width: 195,
+  height: 195,
+  alignSelf: "center",
+  marginBottom: 32
+};

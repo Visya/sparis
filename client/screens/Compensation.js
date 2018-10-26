@@ -1,20 +1,26 @@
 import React from "react";
-import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import {
-  ECards,
-  ECardsLabels,
-  ETramBranches,
-  EMetroBranches,
-  EStations,
-  ETimeFrames
-} from "../utils/enums";
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
+import { ETimeFrames, ETravelTypesLabels } from "../utils/enums";
+
+import BusLines from "../utils/static/transportType/bus.json";
+import TramLines from "../utils/static/transportType/tram.json";
+import MetroLines from "../utils/static/transportType/metro.json";
+import TrainLines from "../utils/static/transportType/train.json";
+
+import BusStations from "../utils/static/lineStops/112.json";
 
 class CompensationScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      cardNumber: "",
-      cardType: ""
+      type: "",
+      line: ""
     };
   }
 
@@ -27,49 +33,61 @@ class CompensationScreen extends React.Component {
     }
   };
 
-  navigateAndSave() {
-    const { navigate } = this.props.navigation;
-    const { cardNumber } = this.state;
-
-    const saveTicketData = async cardNumber => {
+  async handleSubmit() {
+    const getTicketData = async () => {
+      let ticketData = "";
       try {
-        await AsyncStorage.setItem(
-          "ticketData",
-          JSON.stringify({
-            cardNumber: this.state.cardNumber,
-            cardType: JSON.stringify(this.state.cardType)
-          })
-        );
+        ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
       } catch (error) {
         // Error retrieving data
         console.log(error.message);
       }
+      return JSON.parse(ticketData);
     };
 
-    saveTicketData();
-    navigate("InfoTicket", {});
-  }
+    const getBankData = async () => {
+      let bankData = "";
+      try {
+        bankData = (await AsyncStorage.getItem("bankData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(bankData);
+    };
 
-  handleSubmit() {
-    // Should send data to the web form here I guess
+    const getContactData = async () => {
+      let contactData = "";
+      try {
+        contactData = (await AsyncStorage.getItem("contactData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(contactData);
+    };
+
+    const storageData = {
+      slCard: await getTicketData(),
+      bankAccount: await getBankData(),
+      contactInfo: await getContactData(),
+      delayInfo: {
+        type: this.state.type,
+        line: this.state.line,
+        from: this.state.from,
+        to: this.state.to,
+        time: this.state.time
+      }
+    };
+
+    console.log(storageData);
   }
 
   render() {
     const { navigate } = this.props.navigation;
 
-    // const getTicketData = async () => {
-    //   let ticketData = "";
-    //   try {
-    //     ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log(error.message);
-    //   }
-    //   return console.log(JSON.parse(JSON.parse(ticketData).branches));
-    // };
-
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -93,7 +111,48 @@ class CompensationScreen extends React.Component {
           quisquam.
         </Text>
 
-        {/* Branch you were going on */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 20
+          }}
+        >
+          {ETravelTypesLabels.map(type => {
+            return (
+              <TouchableOpacity
+                key={type}
+                onPress={() => this.setState({ type: type })}
+              >
+                <View
+                  style={{
+                    padding: 25,
+                    paddingLeft: 30,
+                    borderRadius: 5,
+                    paddingRight: 30,
+                    borderWidth: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderColor:
+                      this.state.type === type ? "#D26283" : "lightgrey",
+                    backgroundColor:
+                      this.state.type === type ? "#D26283" : "white"
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: this.state.type === type ? "white" : "#222"
+                    }}
+                  >
+                    {type[0]}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+
+        {/* line you were going on */}
         <TouchableOpacity
           onPress={() =>
             this.setState({ dropdown: this.state.dropdown ? false : true })
@@ -112,9 +171,13 @@ class CompensationScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.tramBranch
-                ? this.state.tramBranch
-                : "Välj en spårvagnslinje"}
+              {/* Välj en{" "}
+              {this.state.line ? this.state.line.Number : this.state.type}
+              -linje */}
+
+              {this.state.line
+                ? this.state.line.GroupOfLine + " " + this.state.line.Number
+                : `Välj en ${this.state.type}-linje`}
             </Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
@@ -130,37 +193,137 @@ class CompensationScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {EMetroBranches.map(branch => {
-              return (
-                <TouchableOpacity
-                  key={branch}
-                  onPress={() => {
-                    this.setState({
-                      tramBranch: branch,
-                      dropdown: false
-                    });
-                  }}
-                >
-                  <View
-                    style={{
-                      padding: 10,
-                      backgroundColor: "#f3f3f3",
-                      marginBottom: 10,
-                      borderRadius: 3
+            {this.state.type === "Spårvagn" &&
+              TramLines.data.Result.map(line => {
+                return (
+                  <TouchableOpacity
+                    key={line.Id}
+                    onPress={() => {
+                      this.setState({
+                        line: line,
+                        dropdown: false
+                      });
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        color: "#222",
-                        fontSize: 16
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
                       }}
                     >
-                      {branch}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {line.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+
+            {this.state.type === "Buss" &&
+              BusLines.data.Result.map(line => {
+                return (
+                  <TouchableOpacity
+                    key={line.Id}
+                    onPress={() => {
+                      this.setState({
+                        line: line,
+                        dropdown: false
+                      });
+                    }}
+                  >
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {line.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+
+            {this.state.type === "Järnväg" &&
+              TrainLines.data.Result.map(line => {
+                return (
+                  <TouchableOpacity
+                    key={line.Id}
+                    onPress={() => {
+                      this.setState({
+                        line: line,
+                        dropdown: false
+                      });
+                    }}
+                  >
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {line.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+
+            {this.state.type === "Tunnelbana" &&
+              MetroLines.data.Result.map(line => {
+                return (
+                  <TouchableOpacity
+                    key={line.Id}
+                    onPress={() => {
+                      this.setState({
+                        line: line,
+                        dropdown: false
+                      });
+                    }}
+                  >
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {line.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         )}
 
@@ -183,9 +346,7 @@ class CompensationScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.startStation
-                ? this.state.startStation
-                : "Din startstation"}
+              {this.state.from ? this.state.from : "Din startstation"}
             </Text>
             {this.state.dropdown2 ? <Text>-</Text> : <Text>+</Text>}
           </View>
@@ -201,13 +362,13 @@ class CompensationScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {EStations.map(station => {
+            {BusStations.data.Result.map(station => {
               return (
                 <TouchableOpacity
-                  key={station}
+                  key={station.Name + station.Number}
                   onPress={() => {
                     this.setState({
-                      startStation: station,
+                      from: station.Name,
                       dropdown2: false
                     });
                   }}
@@ -226,7 +387,7 @@ class CompensationScreen extends React.Component {
                         fontSize: 16
                       }}
                     >
-                      {station}
+                      {station.Name}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -235,7 +396,7 @@ class CompensationScreen extends React.Component {
           </View>
         )}
 
-        {/* Endstation */}
+        {/* to */}
         <TouchableOpacity
           onPress={() =>
             this.setState({ dropdown3: this.state.dropdown3 ? false : true })
@@ -253,11 +414,7 @@ class CompensationScreen extends React.Component {
               alignItems: "center"
             }}
           >
-            <Text>
-              {this.state.endStation
-                ? this.state.endStation
-                : "Din slutstation"}
-            </Text>
+            <Text>{this.state.to ? this.state.to : "Din slutstation"}</Text>
             {this.state.dropdown3 ? <Text>-</Text> : <Text>+</Text>}
           </View>
         </TouchableOpacity>
@@ -272,13 +429,13 @@ class CompensationScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {EStations.map(station => {
+            {BusStations.data.Result.map(station => {
               return (
                 <TouchableOpacity
-                  key={station}
+                  key={station.Name + station.Number}
                   onPress={() => {
                     this.setState({
-                      endStation: station,
+                      to: station.Name,
                       dropdown3: false
                     });
                   }}
@@ -297,7 +454,7 @@ class CompensationScreen extends React.Component {
                         fontSize: 16
                       }}
                     >
-                      {station}
+                      {station.Name}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -402,7 +559,7 @@ class CompensationScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

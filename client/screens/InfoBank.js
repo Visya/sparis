@@ -4,16 +4,18 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  AsyncStorage
+  AsyncStorage,
+  Button
 } from "react-native";
-import { ECards, ECardsLabels, EBankAccounts } from "../utils/enums";
+import { EBankAccounts } from "../utils/enums";
 
 class InfoBankScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      cardNumber: "",
-      accountType: ""
+      type: "",
+      clearingNumber: "",
+      account: ""
     };
   }
 
@@ -23,20 +25,28 @@ class InfoBankScreen extends React.Component {
     headerBackTitle: null,
     headerStyle: {
       backgroundColor: "#D26283"
-    }
+    },
+    headerRight: (
+      <Button
+        onPress={() => alert("This is a button!")}
+        title="Info"
+        color="#fff"
+      />
+    )
   };
 
   navigateAndSave() {
     const { navigate } = this.props.navigation;
-    const { cardNumber } = this.state;
+    const { account } = this.state;
 
-    const saveTicketData = async cardNumber => {
+    const saveBankData = async account => {
       try {
         await AsyncStorage.setItem(
-          "ticketData",
+          "bankData",
           JSON.stringify({
-            cardNumber: this.state.cardNumber,
-            accountType: JSON.stringify(this.state.accountType)
+            account: this.state.account,
+            type: this.state.type,
+            clearingNumber: this.state.clearingNumber
           })
         );
       } catch (error) {
@@ -45,23 +55,12 @@ class InfoBankScreen extends React.Component {
       }
     };
 
-    saveTicketData();
-    navigate("Compensation", {});
+    saveBankData();
+    navigate("InfoContact", {});
   }
 
   render() {
     const { navigate } = this.props.navigation;
-
-    // const getTicketData = async () => {
-    //   let ticketData = "";
-    //   try {
-    //     ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log(error.message);
-    //   }
-    //   return console.log(JSON.parse(JSON.parse(ticketData).branches));
-    // };
 
     return (
       <View
@@ -105,11 +104,7 @@ class InfoBankScreen extends React.Component {
               alignItems: "center"
             }}
           >
-            <Text>
-              {this.state.accountType
-                ? this.state.accountType
-                : "Välj en korttyp"}
-            </Text>
+            <Text>{this.state.type ? this.state.type : "Välj en korttyp"}</Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
         </TouchableOpacity>
@@ -130,7 +125,7 @@ class InfoBankScreen extends React.Component {
                   key={account}
                   onPress={() => {
                     this.setState({
-                      accountType: account,
+                      type: account,
                       dropdown: false
                     });
                   }}
@@ -189,8 +184,8 @@ class InfoBankScreen extends React.Component {
             alignItems: "center"
           }}
           placeholder="Kontonummer"
-          onChangeText={text => this.setState({ accountNumber: text })}
-          value={this.state.accountNumber}
+          onChangeText={text => this.setState({ account: text })}
+          value={this.state.account}
         />
 
         <View

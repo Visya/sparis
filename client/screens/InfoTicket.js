@@ -1,29 +1,33 @@
 import React from "react";
 import {
   View,
+  ScrollView,
   Text,
   TouchableOpacity,
   TextInput,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
-import { ECards, ECardsLabels } from "../utils/enums";
+import HeaderLeft from "../components/HeaderLeft";
+import HeaderRight from "../components/HeaderRight";
+import { ECards, ECardsLabels, ImageStyle } from "../utils/enums";
 
 class InfoTicketScreen extends React.Component {
   constructor() {
     super();
     this.state = {
       cardNumber: "",
-      cardType: ""
+      ticketType: ""
     };
   }
 
-  static navigationOptions = {
-    title: "Spåris",
-    headerTintColor: "white",
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: "#D26283"
-    }
+  static navigationOptions = ({ navigation }) => {
+    const { navigate } = navigation;
+    return {
+      title: "Uppgifter - Biljett",
+      headerLeft: <HeaderLeft navigate={navigate} />,
+      headerRight: <HeaderRight navigate={navigate} />
+    };
   };
 
   navigateAndSave() {
@@ -36,7 +40,7 @@ class InfoTicketScreen extends React.Component {
           "ticketData",
           JSON.stringify({
             cardNumber: this.state.cardNumber,
-            cardType: JSON.stringify(this.state.cardType)
+            ticketType: this.state.ticketType
           })
         );
       } catch (error) {
@@ -52,19 +56,8 @@ class InfoTicketScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    // const getTicketData = async () => {
-    //   let ticketData = "";
-    //   try {
-    //     ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log(error.message);
-    //   }
-    //   return console.log(JSON.parse(JSON.parse(ticketData).branches));
-    // };
-
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -72,6 +65,10 @@ class InfoTicketScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/ticket.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
           Dina uppgifter - biljett
         </Text>
@@ -106,7 +103,9 @@ class InfoTicketScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.cardType ? this.state.cardType : "Välj en korttyp"}
+              {this.state.ticketType
+                ? this.state.ticketType
+                : "Välj en korttyp"}
             </Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
@@ -128,7 +127,7 @@ class InfoTicketScreen extends React.Component {
                   key={card}
                   onPress={() => {
                     this.setState({
-                      cardType: card,
+                      ticketType: card,
                       dropdown: false
                     });
                   }}
@@ -203,7 +202,7 @@ class InfoTicketScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

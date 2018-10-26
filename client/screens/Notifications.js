@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import {
-  ETravelMethodsLabels,
-  ETravelMethods,
-  EMetroBranches
-} from "../utils/enums";
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  AsyncStorage,
+  Image
+} from "react-native";
+import { ETravelTypesLabels, EMetroLines, ImageStyle } from "../utils/enums";
 
 class NotificationsScreen extends React.Component {
   constructor() {
@@ -12,16 +15,12 @@ class NotificationsScreen extends React.Component {
     this.state = {
       value: "",
       method: "",
-      selectedBranches: []
+      selectedLines: []
     };
   }
   static navigationOptions = {
-    title: "Spåris",
-    headerTintColor: "white",
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: "#D26283"
-    }
+    title: "",
+    headerLeft: null
   };
 
   navigateAndSave() {
@@ -34,7 +33,7 @@ class NotificationsScreen extends React.Component {
           "notificationData",
           JSON.stringify({
             method: this.state.method,
-            branches: JSON.stringify(this.state.selectedBranches)
+            branches: JSON.stringify(this.state.selectedLines)
           })
         );
       } catch (error) {
@@ -44,14 +43,14 @@ class NotificationsScreen extends React.Component {
     };
 
     saveNotificationData();
-    navigate("InfoTicket", {});
+    navigate("Compensation", {});
   }
 
   render() {
     const { navigate } = this.props.navigation;
 
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -59,6 +58,10 @@ class NotificationsScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/notifications.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>Notifikationer</Text>
         <Text
           style={{
@@ -78,7 +81,7 @@ class NotificationsScreen extends React.Component {
             marginTop: 20
           }}
         >
-          {ETravelMethodsLabels.map(method => {
+          {ETravelTypesLabels.map(method => {
             return (
               <TouchableOpacity
                 key={method}
@@ -161,13 +164,13 @@ class NotificationsScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {EMetroBranches.map(branch => {
+            {EMetroLines.map(line => {
               return (
                 <TouchableOpacity
-                  key={branch}
+                  key={line}
                   onPress={() => {
                     this.setState(prevState => ({
-                      selectedBranches: [...prevState.selectedBranches, branch]
+                      selectedLines: [...prevState.selectedLines, line]
                     }));
                   }}
                 >
@@ -175,9 +178,7 @@ class NotificationsScreen extends React.Component {
                     style={{
                       padding: 10,
 
-                      backgroundColor: this.state.selectedBranches.includes(
-                        branch
-                      )
+                      backgroundColor: this.state.selectedLines.includes(line)
                         ? "#222"
                         : "#f3f3f3",
                       marginBottom: 10,
@@ -185,15 +186,15 @@ class NotificationsScreen extends React.Component {
                     }}
                   >
                     <Text
-                      key={branch}
+                      key={line}
                       style={{
-                        color: this.state.selectedBranches.includes(branch)
+                        color: this.state.selectedLines.includes(line)
                           ? "white"
                           : "#222",
                         fontSize: 16
                       }}
                     >
-                      {branch} linjen
+                      {line} linjen
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -207,9 +208,9 @@ class NotificationsScreen extends React.Component {
             alignItems: "center"
           }}
         >
-          {this.state.selectedBranches.length > 0 && (
+          {this.state.selectedLines.length > 0 && (
             <TouchableOpacity
-              onPress={() => this.setState({ selectedBranches: [] })}
+              onPress={() => this.setState({ selectedLines: [] })}
               style={{
                 borderRadius: 5,
                 padding: 10,
@@ -242,7 +243,7 @@ class NotificationsScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
