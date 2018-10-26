@@ -65,8 +65,8 @@ export const testData = {
   delayInfo: {
     type: 'Buss',
     line: { Number: '302' },
-    from: 'Cityterminalen',
-    to: 'Broparken',
+    from: 'Drottningholm',
+    to: 'Brostugan',
     time: '20-39 minuter'
   }
 };
@@ -84,10 +84,9 @@ function waitForElToExist(selector, handler, maxDelay) {
           '[data-ng-model="data.special.travel.from"]',
           '[data-ng-model="data.special.travel.to"]'
         ].includes(selector)) {
-      $('.page-header').append('WAAAAT')
       setTimeout(function() {
         handler($(selector))
-      }, 3000);
+      }, 1000);
     } else {
       handler(element);
     }
