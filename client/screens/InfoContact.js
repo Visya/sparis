@@ -6,8 +6,11 @@ import {
   TouchableOpacity,
   TextInput,
   AsyncStorage,
-  Button
+  Button,
+  Image
 } from "react-native";
+
+import { ImageStyle } from "../utils/enums";
 
 class InfoContactScreen extends React.Component {
   constructor() {
@@ -21,14 +24,7 @@ class InfoContactScreen extends React.Component {
     headerBackTitle: null,
     headerStyle: {
       backgroundColor: "#D26283"
-    },
-    headerRight: (
-      <Button
-        onPress={() => alert("This is a button!")}
-        title="Info"
-        color="#fff"
-      />
-    )
+    }
   };
 
   navigateAndSave() {
@@ -84,20 +80,12 @@ class InfoContactScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/contactinfo.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
           Dina kontaktuppgifter
-        </Text>
-        <Text
-          style={{
-            paddingTop: 10,
-            lineHeight: 20,
-            opacity: 0.85
-          }}
-        >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-          reiciendis quo eveniet ratione et rem quas saepe cumque nostrum
-          quisquam. quas saepe cumque nostrum quisquam. saepe cumque nostrum
-          quisquam.
         </Text>
 
         <TextInput
@@ -283,7 +271,8 @@ class InfoContactScreen extends React.Component {
                 width: 250,
                 borderRadius: 5,
                 backgroundColor: "#D26283",
-                marginTop: !this.state.dropdown ? 50 : 35
+                marginTop: !this.state.dropdown ? 50 : 35,
+                marginBottom: 50
               }}
             >
               <Text

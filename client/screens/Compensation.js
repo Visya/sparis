@@ -4,9 +4,12 @@ import {
   View,
   Text,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
-import { ETimeFrames, ETravelTypesLabels } from "../utils/enums";
+import { ETimeFrames, ETravelTypesLabels, ImageStyle } from "../utils/enums";
+import HeaderLeft from "../components/HeaderLeft";
+import HeaderRight from "../components/HeaderRight";
 
 import BusLines from "../utils/static/transportType/bus.json";
 import TramLines from "../utils/static/transportType/tram.json";
@@ -24,13 +27,13 @@ class CompensationScreen extends React.Component {
     };
   }
 
-  static navigationOptions = {
-    title: "Spåris",
-    headerTintColor: "white",
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: "#D26283"
-    }
+  static navigationOptions = ({ navigation }) => {
+    const { navigate } = navigation;
+    return {
+      title: "",
+      headerLeft: <HeaderLeft navigate={navigate} />,
+      headerRight: <HeaderRight navigate={navigate} />
+    };
   };
 
   async handleSubmit() {
@@ -95,8 +98,9 @@ class CompensationScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image style={ImageStyle} source={require("../assets/img/money.png")} />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
-          Be om Förseningsersättning
+          Be om förseningsersättning
         </Text>
         <Text
           style={{
@@ -105,10 +109,7 @@ class CompensationScreen extends React.Component {
             opacity: 0.85
           }}
         >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-          reiciendis quo eveniet ratione et rem quas saepe cumque nostrum
-          quisquam. quas saepe cumque nostrum quisquam. saepe cumque nostrum
-          quisquam.
+          Fyll i informationen nedan för att be om förseningsersättning.
         </Text>
 
         <View

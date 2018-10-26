@@ -8,6 +8,7 @@ import About from "./screens/About";
 import InfoBankScreen from "./screens/InfoBank";
 import InfoContactScreen from "./screens/InfoContact";
 import CompensationScreen from "./screens/Compensation";
+import Yay from "./screens/Yay";
 
 const App = createStackNavigator(
   {
@@ -19,7 +20,8 @@ const App = createStackNavigator(
     Form: { screen: FormScreen },
     InfoTicket: { screen: InfoTicketScreen },
     About: { screen: About },
-    Compensation: { screen: CompensationScreen }
+    Compensation: { screen: CompensationScreen },
+    Yay: { screen: Yay }
   },
   {
     navigationOptions: {

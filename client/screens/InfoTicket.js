@@ -8,8 +8,6 @@ import {
   AsyncStorage,
   Image
 } from "react-native";
-import HeaderLeft from "../components/HeaderLeft";
-import HeaderRight from "../components/HeaderRight";
 import { ECards, ECardsLabels, ImageStyle } from "../utils/enums";
 
 class InfoTicketScreen extends React.Component {
@@ -78,10 +76,9 @@ class InfoTicketScreen extends React.Component {
             opacity: 0.85
           }}
         >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-          reiciendis quo eveniet ratione et rem quas saepe cumque nostrum
-          quisquam. quas saepe cumque nostrum quisquam. saepe cumque nostrum
-          quisquam.
+          Här fyller du i dina uppgifter som vi använder för att fylla i
+          formuläret åt dig. Dina uppgifter lagras på din mobiltelefon och
+          skickas endast till SL i samband med att du ansöker om resersättning.
         </Text>
 
         <TouchableOpacity

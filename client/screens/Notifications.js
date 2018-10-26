@@ -70,9 +70,8 @@ class NotificationsScreen extends React.Component {
             opacity: 0.85
           }}
         >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-          reiciendis quo eveniet ratione et rem quas saepe cumque nostrum
-          quisquam.
+          Genom att fylla i ditt vanligaste resesätt kan vi skicka dig en
+          notifiering om det sker en försening.
         </Text>
         <View
           style={{

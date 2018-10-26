@@ -67,22 +67,10 @@ class InfoBankScreen extends React.Component {
       >
         <Image
           style={ImageStyle}
-          source={require("../assets/img/ticket.png")}
+          source={require("../assets/img/bankaccount.png")}
         />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
           Dina uppgifter - bankkonto
-        </Text>
-        <Text
-          style={{
-            paddingTop: 10,
-            lineHeight: 20,
-            opacity: 0.85
-          }}
-        >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-          reiciendis quo eveniet ratione et rem quas saepe cumque nostrum
-          quisquam. quas saepe cumque nostrum quisquam. saepe cumque nostrum
-          quisquam.
         </Text>
 
         <TouchableOpacity

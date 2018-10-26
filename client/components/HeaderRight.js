@@ -14,7 +14,7 @@ export default (HeaderRight = props => {
       <TouchableOpacity onPress={() => props.navigate("About", {})}>
         <FontAwesome name="question-circle-o" size={32} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => props.navigate("Home", {})}>
+      <TouchableOpacity onPress={() => props.navigate("InfoTicket", {})}>
         <View
           style={{
             marginLeft: 16
