@@ -11,7 +11,8 @@ class NotificationsScreen extends React.Component {
     super();
     this.state = {
       value: "",
-      method: ""
+      method: "",
+      selectedBranches: []
     };
   }
 
@@ -21,8 +22,6 @@ class NotificationsScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
-    const selectedBranches = [];
 
     return (
       <View
@@ -93,7 +92,7 @@ class NotificationsScreen extends React.Component {
           >
             <View
               style={{
-                marginTop: 50,
+                marginTop: 20,
                 borderWidth: 1,
                 borderColor: "lightgrey",
                 borderRadius: 5,
@@ -128,28 +127,48 @@ class NotificationsScreen extends React.Component {
         {this.state.dropdown && (
           <View
             style={{
-              marginTop: 10,
               borderWidth: 1,
               borderColor: "lightgrey",
               borderRadius: 5,
-              padding: 10
+              padding: 10,
+              marginTop: 10
             }}
           >
             {EMetroBranches.map(branch => {
               return (
-                <TouchableOpacity onPress={() => selectedBranches.push(branch)}>
-                  <Text
-                    key={branch}
+                <TouchableOpacity
+                  key={branch}
+                  onPress={() => {
+                    this.setState(prevState => ({
+                      selectedBranches: [...prevState.selectedBranches, branch]
+                    }));
+                  }}
+                >
+                  <View
                     style={{
                       padding: 10,
-                      fontSize: 16,
-                      borderRadius: 3,
-                      backgroundColor: "#f3f3f3",
-                      marginBottom: 10
+
+                      backgroundColor: this.state.selectedBranches.includes(
+                        branch
+                      )
+                        ? "#222"
+                        : "#f3f3f3",
+                      marginBottom: 10,
+                      borderRadius: 3
                     }}
                   >
-                    {branch} linjen
-                  </Text>
+                    <Text
+                      key={branch}
+                      style={{
+                        color: this.state.selectedBranches.includes(branch)
+                          ? "white"
+                          : "#222",
+                        fontSize: 16
+                      }}
+                    >
+                      {branch} linjen
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               );
             })}
@@ -161,14 +180,26 @@ class NotificationsScreen extends React.Component {
             alignItems: "center"
           }}
         >
-          <TouchableOpacity onPress={() => navigate("Notifications", {})}>
+          {this.state.selectedBranches.length > 0 && (
+            <TouchableOpacity
+              onPress={() => this.setState({ selectedBranches: [] })}
+              style={{
+                borderRadius: 5,
+                padding: 10,
+                marginTop: 15
+              }}
+            >
+              <Text style={{ color: "dodgerblue", fontSize: 16 }}>Rensa</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
             <View
               style={{
                 padding: 15,
                 width: 250,
                 borderRadius: 5,
                 backgroundColor: "#D26283",
-                marginTop: 30
+                marginTop: !this.state.dropdown ? 50 : 35
               }}
             >
               <Text

@@ -1,5 +1,5 @@
 node_modules/**/*
-.expo/*
+/**/.expo/*
 npm-debug.*
 
 # Logs
@@ -78,4 +78,6 @@ typings/
 
 # FuseBox cache
 .fusebox/
-client/.expo
+
+# Garbage
+.DS_Store
