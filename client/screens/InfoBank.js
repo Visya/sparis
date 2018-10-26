@@ -5,9 +5,14 @@ import {
   TouchableOpacity,
   TextInput,
   AsyncStorage,
-  Button
+  Image
 } from "react-native";
-import { ECards, ECardsLabels, EBankAccounts } from "../utils/enums";
+import {
+  ECards,
+  ECardsLabels,
+  EBankAccounts,
+  ImageStyle
+} from "../utils/enums";
 
 class InfoBankScreen extends React.Component {
   constructor() {
@@ -24,14 +29,7 @@ class InfoBankScreen extends React.Component {
     headerBackTitle: null,
     headerStyle: {
       backgroundColor: "#D26283"
-    },
-    headerRight: (
-      <Button
-        onPress={() => alert("This is a button!")}
-        title="Info"
-        color="#fff"
-      />
-    )
+    }
   };
 
   navigateAndSave() {
@@ -80,6 +78,10 @@ class InfoBankScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/ticket.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
           Dina uppgifter - bankkonto
         </Text>
