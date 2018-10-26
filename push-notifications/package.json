@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-pushnotifications": "^1.1.7"
+    "firebase-admin": "^6.1.0"
   }
 }
