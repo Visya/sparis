@@ -6,12 +6,14 @@ import FormScreen from "./screens/Form";
 import InfoTicketScreen from "./screens/InfoTicket";
 import About from "./screens/About";
 import InfoBankScreen from "./screens/InfoBank";
+import InfoContactScreen from "./screens/InfoContact";
 import CompensationScreen from "./screens/Compensation";
 
 const App = createStackNavigator(
   {
     Home: { screen: HomeScreen },
     InfoTicket: { screen: InfoTicketScreen },
+    InfoContact: { screen: InfoContactScreen },
     InfoBank: { screen: InfoBankScreen },
     Notifications: { screen: NotificationsScreen },
     Form: { screen: FormScreen },

@@ -7,19 +7,16 @@ import {
   AsyncStorage,
   Image
 } from "react-native";
-import {
-  ECards,
-  ECardsLabels,
-  EBankAccounts,
-  ImageStyle
-} from "../utils/enums";
+
+import { EBankAccounts, ImageStyle } from "../utils/enums";
 
 class InfoBankScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      cardNumber: "",
-      type: ""
+      type: "",
+      clearingNumber: "",
+      account: ""
     };
   }
 
@@ -34,15 +31,16 @@ class InfoBankScreen extends React.Component {
 
   navigateAndSave() {
     const { navigate } = this.props.navigation;
-    const { cardNumber } = this.state;
+    const { account } = this.state;
 
-    const saveTicketData = async cardNumber => {
+    const saveBankData = async account => {
       try {
         await AsyncStorage.setItem(
-          "ticketData",
+          "bankData",
           JSON.stringify({
-            cardNumber: this.state.cardNumber,
-            type: JSON.stringify(this.state.type)
+            account: this.state.account,
+            type: this.state.type,
+            clearingNumber: this.state.clearingNumber
           })
         );
       } catch (error) {
@@ -51,23 +49,12 @@ class InfoBankScreen extends React.Component {
       }
     };
 
-    saveTicketData();
-    navigate("Notifications", {});
+    saveBankData();
+    navigate("InfoContact", {});
   }
 
   render() {
     const { navigate } = this.props.navigation;
-
-    // const getTicketData = async () => {
-    //   let ticketData = "";
-    //   try {
-    //     ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log(error.message);
-    //   }
-    //   return console.log(JSON.parse(JSON.parse(ticketData).branches));
-    // };
 
     return (
       <View

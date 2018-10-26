@@ -1,6 +1,7 @@
 import React from "react";
 import {
   View,
+  ScrollView,
   Text,
   TouchableOpacity,
   AsyncStorage,
@@ -20,14 +21,6 @@ class NotificationsScreen extends React.Component {
   static navigationOptions = {
     title: "",
     headerLeft: null
-    /*
-    title: "Spåris",
-    headerTintColor: "white",
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: "#D26283"
-    }
-*/
   };
 
   navigateAndSave() {
@@ -57,7 +50,7 @@ class NotificationsScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -250,7 +243,7 @@ class NotificationsScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

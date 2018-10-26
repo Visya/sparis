@@ -1,6 +1,7 @@
 import React from "react";
 import {
   View,
+  ScrollView,
   Text,
   TouchableOpacity,
   TextInput,
@@ -27,16 +28,6 @@ class InfoTicketScreen extends React.Component {
       headerLeft: null
     };
   };
-  /*
-  static navigationOptions = {
-    title: "Spåris",
-    headerTintColor: "white",
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: "#D26283"
-    }
-  };
-  */
 
   navigateAndSave() {
     const { navigate } = this.props.navigation;
@@ -48,7 +39,7 @@ class InfoTicketScreen extends React.Component {
           "ticketData",
           JSON.stringify({
             cardNumber: this.state.cardNumber,
-            ticketType: JSON.stringify(this.state.ticketType)
+            ticketType: this.state.ticketType
           })
         );
       } catch (error) {
@@ -64,19 +55,8 @@ class InfoTicketScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    // const getTicketData = async () => {
-    //   let ticketData = "";
-    //   try {
-    //     ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log(error.message);
-    //   }
-    //   return console.log(JSON.parse(JSON.parse(ticketData).branches));
-    // };
-
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -221,7 +201,7 @@ class InfoTicketScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
