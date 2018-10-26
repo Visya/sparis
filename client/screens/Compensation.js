@@ -33,8 +33,54 @@ class CompensationScreen extends React.Component {
     }
   };
 
-  handleSubmit() {
-    // Should send data to the web form here I guess
+  async handleSubmit() {
+    const getTicketData = async () => {
+      let ticketData = "";
+      try {
+        ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(ticketData);
+    };
+
+    const getBankData = async () => {
+      let bankData = "";
+      try {
+        bankData = (await AsyncStorage.getItem("bankData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(bankData);
+    };
+
+    const getContactData = async () => {
+      let contactData = "";
+      try {
+        contactData = (await AsyncStorage.getItem("contactData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(contactData);
+    };
+
+    const storageData = {
+      slCard: await getTicketData(),
+      bankAccount: await getBankData(),
+      contactInfo: await getContactData(),
+      delayInfo: {
+        type: this.state.type,
+        line: this.state.line,
+        from: this.state.from,
+        to: this.state.to,
+        time: this.state.time
+      }
+    };
+
+    console.log(storageData);
   }
 
   render() {

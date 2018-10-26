@@ -11,9 +11,14 @@ export const ETravelTypes = ["TRAM", "TRAIN", "BUS", "SHIP", "METRO"];
 
 export const EMetroLines = ["Blå", "Röd", "Grön", "Gul"];
 
-export const ETramLines = ["Blå", "Röd", "Grön", "Gul"];
-
-export const ECardsLabels = ["Månadskort", "Klippkort", "App"];
+export const ECardsLabels = [
+  "30-dagarsbiljett, vuxen",
+  "30 - dagarsbiljett, pensionär, student, ungdom",
+  "90-dagarsbiljett, vuxen",
+  "90 - dagarsbiljett, pensionär, student, ungdom",
+  "Årsbiljett, vuxen",
+  "Årsbiljett, pensionär, student, ungdom"
+];
 
 export const ECards = {
   Månadskort: 1,
@@ -30,10 +35,9 @@ export const EStations = [
 ];
 
 export const ETimeFrames = [
-  "Nu",
-  "Igår",
-  "Inom 3 dagar",
-  "Över en vecka sedan"
+  "20-39 minuter",
+  "40-59 minuter",
+  "60 minuter eller mer"
 ];
 
 export const EBankAccounts = ["Bankgiro", "Plusgiro", "Bankkonto"];

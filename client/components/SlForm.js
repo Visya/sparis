@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { WebView } from 'react-native';
+import React, { Component } from "react";
+import { WebView } from "react-native";
 
 const testData = {
   "data.issue.ext.compensation_type": "priceDeduction",
@@ -17,9 +17,9 @@ const testData = {
   "data.issue.ticket.type": "Biljett på SL Access-kort",
   "travel_card.serial_number1": "12345",
   "travel_card.serial_number2": "54321",
-  "delay": "60",
+  delay: "60",
   "data.issue.compensation.from": "Brommaplan",
-  "data.issue.compensation.to": "Färentunavägen",
+  "data.issue.compensation.to": "Färentunavägen"
 };
 
 const script = `
@@ -83,10 +83,13 @@ class SlForm extends Component {
     return (
       <WebView
         useWebKit={true}
-        source={{ uri: 'https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning' }}
+        source={{
+          uri:
+            "https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning"
+        }}
         style={{ marginTop: 20 }}
         injectedJavaScript={script}
-        onMessage={ (event) => console.log(event.nativeEvent.data) }
+        onMessage={event => console.log(event.nativeEvent.data)}
         javaScriptEnabled={true}
       />
     );

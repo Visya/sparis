@@ -6,7 +6,7 @@ import {
   TextInput,
   AsyncStorage
 } from "react-native";
-import { ECards, ECardsLabels } from "../utils/enums";
+import { ECardsLabels } from "../utils/enums";
 
 class InfoTicketScreen extends React.Component {
   constructor() {
@@ -36,7 +36,7 @@ class InfoTicketScreen extends React.Component {
           "ticketData",
           JSON.stringify({
             cardNumber: this.state.cardNumber,
-            ticketType: JSON.stringify(this.state.ticketType)
+            ticketType: this.state.ticketType
           })
         );
       } catch (error) {
