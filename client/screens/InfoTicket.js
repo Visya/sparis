@@ -23,9 +23,8 @@ class InfoTicketScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { navigate } = navigation;
     return {
-      title: "Uppgifter - Biljett",
-      headerLeft: <HeaderLeft navigate={navigate} />,
-      headerRight: <HeaderRight navigate={navigate} />
+      title: "",
+      headerLeft: null
     };
   };
   /*
