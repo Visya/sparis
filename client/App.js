@@ -7,6 +7,6 @@ const App = createStackNavigator({
   Home: { screen: HomeScreen },
   Notifications: { screen: NotificationsScreen },
   Form: { screen: FormScreen },
-}, { initialRouteName: 'Form' });
+});
 
 export default App;
