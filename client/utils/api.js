@@ -48,4 +48,15 @@ loadForm = function() {
             });
 }
 
-loadForm();
+getLineStops = function(type, lineNumber) {
+  const lineAPIurl = 'https://sl.se/api/linedata/getstops/'
+                   + type + '/' + type + '/' + lineNumber
+
+  return axios.get(lineAPIurl)
+            .then(response => {
+              return response.data
+            })
+            .catch((error) => {
+              console.log('error 3 ' + error);
+            });
+}

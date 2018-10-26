@@ -11,6 +11,7 @@ export const ETravelMethodsLabels = [
   "Buss",
   "Spårvagn"
 ];
+export const ETravelMethods = ["TRAM", "TRAIN", "BUS", "SHIP", "METRO"];
 
 export const EMetroBranches = ["Blå", "Röd", "Grön", "Gul"];
 
