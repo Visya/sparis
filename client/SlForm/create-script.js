@@ -25,7 +25,7 @@ const staticFields = {
 const dynamicFields = {
   '[name="data.issue.compensation.type.priceDeduction.delay"]': 'delayInfo.time',
   '#price_deduction_ticket_type': 'slCard.ticketType',
-  '[name="data.traffic_line_range"]': ({ delayInfo: { type, line } = {} } = {}) => {
+  '[name="data.traffic_line_range"]': ({ delayInfo: { type, line: { Number: line } } = {} } = {}) => {
     if (type !== 'Buss') return null;
 
     if (line <= 293) return '1-293';
@@ -38,6 +38,8 @@ const dynamicFields = {
   '[name="data.issue.travel.line"]': 'delayInfo.line.Number',
   '[data-ng-model="data.special.travel.from"]': 'delayInfo.from',
   '[data-ng-model="data.special.travel.to"]': 'delayInfo.to',
+  '[name="data.issue.compensation.from"]': 'delayInfo.from',
+  '[name="data.issue.compensation.to"]': 'delayInfo.to',
   '[name="travel_card.serial_number1"]': (data = {}) => data.slCard.cardNumber.substring(0, 5),
   '[name="travel_card.serial_number2"]': (data = {}) => data.slCard.cardNumber.substring(5),
   '[name="data.issue.compensation.refound.bank.clearing"]': 'bankAccount.clearingNumber',
@@ -47,7 +49,7 @@ const dynamicFields = {
 
 export const testData = {
   slCard: { ticketType: 'Årsbiljett, vuxen', cardNumber: '1234554321' },
-  bankAccount: { type: 'Bankkonto', clearingNumber: '12345', account: '12345' },
+  bankAccount: { type: 'Bankkonto', clearingNumber: '12345', account: '54321' },
   contactInfo: {
     id: '199001203434',
     firstname: 'Marcus',
