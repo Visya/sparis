@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  AsyncStorage
-} from "react-native";
+import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import {
   ECards,
   ECardsLabels,

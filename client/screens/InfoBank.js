@@ -160,6 +160,7 @@ class InfoBankScreen extends React.Component {
         )}
 
         <TextInput
+          underlineColorAndroid="rgba(0,0,0,0)"
           style={{
             marginTop: 20,
             borderWidth: 1,
@@ -176,6 +177,7 @@ class InfoBankScreen extends React.Component {
         />
 
         <TextInput
+          underlineColorAndroid="rgba(0,0,0,0)"
           style={{
             marginTop: 20,
             borderWidth: 1,

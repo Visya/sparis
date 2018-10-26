@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  AsyncStorage
-} from "react-native";
+import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import {
   ETravelMethodsLabels,
   ETravelMethods,
