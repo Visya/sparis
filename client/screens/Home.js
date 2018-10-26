@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
           dicta. Voluptate nihil officiis ducimus quaerat, voluptas nobis ipsum.
           Autem, libero aliquid. Ducimus, aliquam.
         </Text>
-        <TouchableOpacity onPress={() => navigate("Notifications", {})}>
+        <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
           <View
             style={{
               padding: 18,

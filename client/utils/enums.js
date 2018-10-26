@@ -26,3 +26,12 @@ export const EStations = [
   "Malmö",
   "Göteborg"
 ];
+
+export const ETimeFrames = [
+  "Nu",
+  "Igår",
+  "Inom 3 dagar",
+  "Över en vecka sedan"
+];
+
+export const EBankAccounts = ["Bankgiro", "Plusgiro", "Bankkonto"];

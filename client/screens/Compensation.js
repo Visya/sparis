@@ -11,7 +11,8 @@ import {
   ECardsLabels,
   ETramBranches,
   EMetroBranches,
-  EStations
+  EStations,
+  ETimeFrames
 } from "../utils/enums";
 
 class CompensationScreen extends React.Component {
@@ -24,7 +25,12 @@ class CompensationScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Förseningsersättning"
+    title: "Spåris",
+    headerTintColor: "white",
+    headerBackTitle: null,
+    headerStyle: {
+      backgroundColor: "#D26283"
+    }
   };
 
   navigateAndSave() {
@@ -48,6 +54,10 @@ class CompensationScreen extends React.Component {
 
     saveTicketData();
     navigate("InfoTicket", {});
+  }
+
+  handleSubmit() {
+    // Should send data to the web form here I guess
   }
 
   render() {
@@ -302,19 +312,86 @@ class CompensationScreen extends React.Component {
           </View>
         )}
 
+        {/* Timepoint when it occured */}
+        <TouchableOpacity
+          onPress={() =>
+            this.setState({ dropdown4: this.state.dropdown4 ? false : true })
+          }
+        >
+          <View
+            style={{
+              marginTop: 20,
+              borderWidth: 1,
+              borderColor: "lightgrey",
+              borderRadius: 5,
+              padding: 16,
+              justifyContent: "space-between",
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <Text>{this.state.time ? this.state.time : "Tidpunkt"}</Text>
+            {this.state.dropdown4 ? <Text>-</Text> : <Text>+</Text>}
+          </View>
+        </TouchableOpacity>
+
+        {this.state.dropdown4 && (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "lightgrey",
+              borderRadius: 5,
+              padding: 10,
+              marginTop: 10
+            }}
+          >
+            {ETimeFrames.map(time => {
+              return (
+                <TouchableOpacity
+                  key={time}
+                  onPress={() => {
+                    this.setState({
+                      time: time,
+                      dropdown4: false
+                    });
+                  }}
+                >
+                  <View
+                    style={{
+                      padding: 10,
+                      backgroundColor: "#f3f3f3",
+                      marginBottom: 10,
+                      borderRadius: 3
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#222",
+                        fontSize: 16
+                      }}
+                    >
+                      {time}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
+
         <View
           style={{
             flex: 2,
             alignItems: "center"
           }}
         >
-          <TouchableOpacity onPress={() => this.navigateAndSave()}>
+          <TouchableOpacity onPress={() => this.handleSubmit()}>
             <View
               style={{
                 padding: 15,
                 width: 250,
                 borderRadius: 5,
-                backgroundColor: "#D26283",
+                backgroundColor: "#62D288",
                 marginTop: !this.state.dropdown ? 50 : 35
               }}
             >
@@ -326,7 +403,7 @@ class CompensationScreen extends React.Component {
                   fontWeight: "600"
                 }}
               >
-                Gå vidare
+                Begär ersättning
               </Text>
             </View>
           </TouchableOpacity>

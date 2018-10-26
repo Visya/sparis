@@ -21,9 +21,13 @@ class NotificationsScreen extends React.Component {
       selectedBranches: []
     };
   }
-
   static navigationOptions = {
-    title: "Notifikationer"
+    title: "Spåris",
+    headerTintColor: "white",
+    headerBackTitle: null,
+    headerStyle: {
+      backgroundColor: "#D26283"
+    }
   };
 
   navigateAndSave() {
