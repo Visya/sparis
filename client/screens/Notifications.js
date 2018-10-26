@@ -1,6 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
-import { ETravelTypesLabels, EMetroLines } from "../utils/enums";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  AsyncStorage,
+  Image
+} from "react-native";
+import { ETravelTypesLabels, EMetroLines, ImageStyle } from "../utils/enums";
 
 class NotificationsScreen extends React.Component {
   constructor() {
@@ -12,12 +18,16 @@ class NotificationsScreen extends React.Component {
     };
   }
   static navigationOptions = {
+    title: "",
+    headerLeft: null
+    /*
     title: "Spåris",
     headerTintColor: "white",
     headerBackTitle: null,
     headerStyle: {
       backgroundColor: "#D26283"
     }
+*/
   };
 
   navigateAndSave() {
@@ -55,6 +65,10 @@ class NotificationsScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/notifications.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>Notifikationer</Text>
         <Text
           style={{

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Image, View, Text, TouchableOpacity } from "react-native";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -18,6 +18,10 @@ class HomeScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={{ width: 250, height: 250 }}
+          source={require("../assets/img/home.jpg")}
+        />
         <Text style={{ fontSize: 30, fontWeight: "600" }}>
           Välkommen till Spåris
         </Text>
@@ -31,12 +35,10 @@ class HomeScreen extends React.Component {
             opacity: 0.85
           }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo placeat
-          amet, cumque praesentium, facilis perspiciatis, iste ad ullam nulla
-          asperiores reiciendis error autem fuga aut iure necessitatibus vero
-          quos deleniti similique aspernatur eius explicabo iusto deserunt
-          dicta. Voluptate nihil officiis ducimus quaerat, voluptas nobis ipsum.
-          Autem, libero aliquid. Ducimus, aliquam.
+          Med denna app kan du snabbt och enkelt be om förseningsersättning för
+          förseningar i SL:s lokaltrafik utan att fylla i krångliga formulär. På
+          nästa skärm anger du dina personuppgifter som sedan används för att
+          fylla i formulären åt dig - smart va?
         </Text>
         <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
           <View
