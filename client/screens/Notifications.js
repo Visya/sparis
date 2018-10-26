@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Image, View, Text, TextInput, TouchableOpacity } from "react-native";
 import {
   ETravelMethodsLabels,
   ETravelMethods,
-  EMetroBranches
+  EMetroBranches,
+  ImageStyle
 } from "../utils/enums";
 
 class NotificationsScreen extends React.Component {
@@ -17,7 +18,8 @@ class NotificationsScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Notifikationer"
+    title: "",
+    headerLeft: null
   };
 
   render() {
@@ -32,6 +34,10 @@ class NotificationsScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/notifications.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>Notifikationer</Text>
         <Text
           style={{

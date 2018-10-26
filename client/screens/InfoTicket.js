@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
-import { ECards, ECardsLabels } from "../utils/enums";
+import { Image, View, Text, TouchableOpacity, TextInput } from "react-native";
+import { ECards, ECardsLabels, ImageStyle } from "../utils/enums";
+import HeaderLeft from "../components/HeaderLeft";
+import HeaderRight from "../components/HeaderRight";
 
 class InfoTicketScreen extends React.Component {
   constructor() {
@@ -10,8 +12,13 @@ class InfoTicketScreen extends React.Component {
     };
   }
 
-  static navigationOptions = {
-    title: "Uppgifter - Biljett"
+  static navigationOptions = ({ navigation }) => {
+    const { navigate } = navigation;
+    return {
+      title: "Uppgifter - Biljett",
+      headerLeft: <HeaderLeft navigate={navigate} />,
+      headerRight: <HeaderRight navigate={navigate} />
+    };
   };
 
   render() {
@@ -26,6 +33,10 @@ class InfoTicketScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/ticket.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
           Dina uppgifter - biljett
         </Text>

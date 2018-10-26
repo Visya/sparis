@@ -16,3 +16,10 @@ export const ECards = {
   Klippkort: 2,
   App: 3
 };
+
+export const ImageStyle = {
+  width: 195,
+  height: 195,
+  alignSelf: "center",
+  marginBottom: 32
+};
