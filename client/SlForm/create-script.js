@@ -35,7 +35,7 @@ const dynamicFields = {
 
     return '796-986';
   },
-  '[name="data.issue.travel.line"]': 'delayInfo.line.Number',
+  '#traffic_line': 'delayInfo.line.Number',
   '[data-ng-model="data.special.travel.from"]': 'delayInfo.from',
   '[data-ng-model="data.special.travel.to"]': 'delayInfo.to',
   '[name="data.issue.compensation.from"]': 'delayInfo.from',
@@ -75,11 +75,22 @@ const helperFunctions = `
 function waitForElToExist(selector, handler, maxDelay) {
   var element = $(selector);
   
-  if (typeof maxDelay === 'undefined') maxDelay = 1500;
+  if (typeof maxDelay === 'undefined') maxDelay = 10000;
   if (maxDelay < 0) return;
   
   if (element.length) {
-    handler(element);
+    if ([
+          '#traffic_line', 
+          '[data-ng-model="data.special.travel.from"]',
+          '[data-ng-model="data.special.travel.to"]'
+        ].includes(selector)) {
+      $('.page-header').append('WAAAAT')
+      setTimeout(function() {
+        handler($(selector))
+      }, 3000);
+    } else {
+      handler(element);
+    }
   } else {
     setTimeout(function() {
       waitForElToExist(selector, handler, maxDelay - 500);

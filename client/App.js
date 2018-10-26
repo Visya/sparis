@@ -12,7 +12,6 @@ import CompensationScreen from "./screens/Compensation";
 const App = createStackNavigator(
   {
     Home: { screen: HomeScreen },
-    InfoTicket: { screen: InfoTicketScreen },
     InfoContact: { screen: InfoContactScreen },
     InfoBank: { screen: InfoBankScreen },
     Notifications: { screen: NotificationsScreen },
