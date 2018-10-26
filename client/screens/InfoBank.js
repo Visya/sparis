@@ -54,7 +54,7 @@ class InfoBankScreen extends React.Component {
     };
 
     saveTicketData();
-    navigate("Compensation", {});
+    navigate("Notifications", {});
   }
 
   render() {

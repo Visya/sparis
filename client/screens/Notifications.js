@@ -44,7 +44,7 @@ class NotificationsScreen extends React.Component {
     };
 
     saveNotificationData();
-    navigate("InfoTicket", {});
+    navigate("Compensation", {});
   }
 
   render() {

@@ -1,20 +1,31 @@
 import React from "react";
-import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import {
   ECards,
   ECardsLabels,
   ETramBranches,
   EMetroBranches,
   EStations,
-  ETimeFrames
+  ETimeFrames,
+  ETravelMethodsLabels
 } from "../utils/enums";
+
+import BusLines from "../utils/static/transportType/bus.json";
+import TramLines from "../utils/static/transportType/tram.json";
+import MetroLines from "../utils/static/transportType/metro.json";
+import TrainLines from "../utils/static/transportType/train.json";
 
 class CompensationScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      cardNumber: "",
-      cardType: ""
+      method: ""
     };
   }
 
@@ -27,29 +38,6 @@ class CompensationScreen extends React.Component {
     }
   };
 
-  navigateAndSave() {
-    const { navigate } = this.props.navigation;
-    const { cardNumber } = this.state;
-
-    const saveTicketData = async cardNumber => {
-      try {
-        await AsyncStorage.setItem(
-          "ticketData",
-          JSON.stringify({
-            cardNumber: this.state.cardNumber,
-            cardType: JSON.stringify(this.state.cardType)
-          })
-        );
-      } catch (error) {
-        // Error retrieving data
-        console.log(error.message);
-      }
-    };
-
-    saveTicketData();
-    navigate("InfoTicket", {});
-  }
-
   handleSubmit() {
     // Should send data to the web form here I guess
   }
@@ -57,19 +45,8 @@ class CompensationScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    // const getTicketData = async () => {
-    //   let ticketData = "";
-    //   try {
-    //     ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log(error.message);
-    //   }
-    //   return console.log(JSON.parse(JSON.parse(ticketData).branches));
-    // };
-
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -93,6 +70,47 @@ class CompensationScreen extends React.Component {
           quisquam.
         </Text>
 
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 20
+          }}
+        >
+          {ETravelMethodsLabels.map(method => {
+            return (
+              <TouchableOpacity
+                key={method}
+                onPress={() => this.setState({ method: method })}
+              >
+                <View
+                  style={{
+                    padding: 25,
+                    paddingLeft: 30,
+                    borderRadius: 5,
+                    paddingRight: 30,
+                    borderWidth: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderColor:
+                      this.state.method === method ? "#D26283" : "lightgrey",
+                    backgroundColor:
+                      this.state.method === method ? "#D26283" : "white"
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: this.state.method === method ? "white" : "#222"
+                    }}
+                  >
+                    {method[0]}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+
         {/* Branch you were going on */}
         <TouchableOpacity
           onPress={() =>
@@ -112,9 +130,13 @@ class CompensationScreen extends React.Component {
             }}
           >
             <Text>
-              {this.state.tramBranch
-                ? this.state.tramBranch
-                : "Välj en spårvagnslinje"}
+              {/* Välj en{" "}
+              {this.state.branch ? this.state.branch.Number : this.state.method}
+              -linje */}
+
+              {this.state.branch
+                ? this.state.branch.GroupOfLine + " " + this.state.branch.Number
+                : `Välj en ${this.state.method}-linje`}
             </Text>
             {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
           </View>
@@ -130,37 +152,137 @@ class CompensationScreen extends React.Component {
               marginTop: 10
             }}
           >
-            {EMetroBranches.map(branch => {
-              return (
-                <TouchableOpacity
-                  key={branch}
-                  onPress={() => {
-                    this.setState({
-                      tramBranch: branch,
-                      dropdown: false
-                    });
-                  }}
-                >
-                  <View
-                    style={{
-                      padding: 10,
-                      backgroundColor: "#f3f3f3",
-                      marginBottom: 10,
-                      borderRadius: 3
+            {this.state.method === "Spårvagn" &&
+              TramLines.data.Result.map(branch => {
+                return (
+                  <TouchableOpacity
+                    key={branch.Id}
+                    onPress={() => {
+                      this.setState({
+                        branch: branch,
+                        dropdown: false
+                      });
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        color: "#222",
-                        fontSize: 16
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
                       }}
                     >
-                      {branch}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {branch.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+
+            {this.state.method === "Buss" &&
+              BusLines.data.Result.map(branch => {
+                return (
+                  <TouchableOpacity
+                    key={branch.Id}
+                    onPress={() => {
+                      this.setState({
+                        branch: branch,
+                        dropdown: false
+                      });
+                    }}
+                  >
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {branch.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+
+            {this.state.method === "Järnväg" &&
+              TrainLines.data.Result.map(branch => {
+                return (
+                  <TouchableOpacity
+                    key={branch.Id}
+                    onPress={() => {
+                      this.setState({
+                        branch: branch,
+                        dropdown: false
+                      });
+                    }}
+                  >
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {branch.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+
+            {this.state.method === "Tunnelbana" &&
+              MetroLines.data.Result.map(branch => {
+                return (
+                  <TouchableOpacity
+                    key={branch.Id}
+                    onPress={() => {
+                      this.setState({
+                        branch: branch,
+                        dropdown: false
+                      });
+                    }}
+                  >
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: "#f3f3f3",
+                        marginBottom: 10,
+                        borderRadius: 3
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#222",
+                          fontSize: 16
+                        }}
+                      >
+                        {branch.Number}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         )}
 
@@ -402,7 +524,7 @@ class CompensationScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
