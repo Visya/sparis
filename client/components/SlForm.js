@@ -23,10 +23,26 @@ const testData = {
 };
 
 const script = `
+(function() {
+function waitForElToExist(selector, handler) {
+  var element = $(selector);
+  
+  if (element.length) {
+    handler(element);
+  } else {
+    setTimeout(function() {
+      waitForElToExist(selector, handler);
+    }, 500);
+  }
+}
+
 $('[name="data.issue.ext.compensation_type"]').val('priceDeduction').change();
-$('[name="data.issue.compensation.type.priceDeduction.delay"').val('20-40').change();
-//$('.refund-form [type="submit"]').click();
+waitForElToExist('[name="data.issue.compensation.type.priceDeduction.delay"]', function(el) {
+  el.val('20-40').change();
+});
+$('.refund-form [type="submit"]').click();
 //$('#refundFormReceipt .button-primary').click();
+})();
 `;
 
 class SlForm extends Component {
