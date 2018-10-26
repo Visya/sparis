@@ -4,9 +4,12 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
-import { ECards, ECardsLabels } from "../utils/enums";
+import HeaderLeft from "../components/HeaderLeft";
+import HeaderRight from "../components/HeaderRight";
+import { ECards, ECardsLabels, ImageStyle } from "../utils/enums";
 
 class InfoTicketScreen extends React.Component {
   constructor() {
@@ -17,6 +20,15 @@ class InfoTicketScreen extends React.Component {
     };
   }
 
+  static navigationOptions = ({ navigation }) => {
+    const { navigate } = navigation;
+    return {
+      title: "Uppgifter - Biljett",
+      headerLeft: <HeaderLeft navigate={navigate} />,
+      headerRight: <HeaderRight navigate={navigate} />
+    };
+  };
+  /*
   static navigationOptions = {
     title: "Spåris",
     headerTintColor: "white",
@@ -25,6 +37,7 @@ class InfoTicketScreen extends React.Component {
       backgroundColor: "#D26283"
     }
   };
+  */
 
   navigateAndSave() {
     const { navigate } = this.props.navigation;
@@ -72,6 +85,10 @@ class InfoTicketScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/ticket.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>
           Dina uppgifter - biljett
         </Text>

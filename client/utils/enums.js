@@ -37,3 +37,10 @@ export const ETimeFrames = [
 ];
 
 export const EBankAccounts = ["Bankgiro", "Plusgiro", "Bankkonto"];
+
+export const ImageStyle = {
+  width: 195,
+  height: 195,
+  alignSelf: "center",
+  marginBottom: 32
+};
