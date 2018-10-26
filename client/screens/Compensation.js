@@ -39,6 +39,8 @@ class CompensationScreen extends React.Component {
   };
 
   async handleSubmit() {
+    const { navigate } = this.props.navigation;
+
     const getTicketData = async () => {
       let ticketData = "";
       try {
@@ -89,11 +91,11 @@ class CompensationScreen extends React.Component {
       data: storageData,
       submitted: true
     });
+
+    navigate("Yay", {});
   }
 
   render() {
-    const { navigate } = this.props.navigation;
-
     return (
       <View
         style={{
