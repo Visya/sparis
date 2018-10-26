@@ -24,14 +24,40 @@ const testData = {
 
 const script = `
 (function() {
-function waitForElToExist(selector, handler) {
+/* onMessage patch */
+var originalPostMessage = window.postMessage;
+/* onMessage patch end */
+
+function waitForElToExist(selector, handler, maxDelay) {
   var element = $(selector);
+  
+  if (typeof maxDelay === 'undefined') maxDelay = 500;
+  if (maxDelay < 0) return;
   
   if (element.length) {
     handler(element);
   } else {
     setTimeout(function() {
-      waitForElToExist(selector, handler);
+      waitForElToExist(selector, handler, maxDelay - 500);
+    }, 500);
+  }
+}
+
+function waitForElementToBeVisible(selector, handler, errorHandler, maxDelay) {
+  var isVisible = $(selector).is(':visible');
+  
+  $('.page-header').append('<p>blah' + isVisible + ' ' + maxDelay + '</p>')
+  
+  if (maxDelay <= 0) {
+    errorHandler();
+    return;
+  }
+  
+  if (isVisible) {
+    handler($(selector));
+  } else {
+    setTimeout(function() {
+      waitForElementToBeVisible(selector, handler, errorHandler, maxDelay - 500);
     }, 500);
   }
 }
@@ -40,8 +66,15 @@ $('[name="data.issue.ext.compensation_type"]').val('priceDeduction').change();
 waitForElToExist('[name="data.issue.compensation.type.priceDeduction.delay"]', function(el) {
   el.val('20-40').change();
 });
+
 $('.refund-form [type="submit"]').click();
-//$('#refundFormReceipt .button-primary').click();
+
+waitForElementToBeVisible('#refundFormReceipt', function() {
+  $('#refundFormReceipt .button-primary').click() 
+}, function() {
+  window.postMessage('Oh no!')
+}, 1000);
+
 })();
 `;
 
@@ -53,6 +86,8 @@ class SlForm extends Component {
         source={{ uri: 'https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning' }}
         style={{ marginTop: 20 }}
         injectedJavaScript={script}
+        onMessage={ (event) => console.log(event.nativeEvent.data) }
+        javaScriptEnabled={true}
       />
     );
   }
