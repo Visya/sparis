@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  AsyncStorage
+  AsyncStorage,
+  Button
 } from "react-native";
 import { ECards, ECardsLabels, EBankAccounts } from "../utils/enums";
 
@@ -23,7 +24,14 @@ class InfoBankScreen extends React.Component {
     headerBackTitle: null,
     headerStyle: {
       backgroundColor: "#D26283"
-    }
+    },
+    headerRight: (
+      <Button
+        onPress={() => alert("This is a button!")}
+        title="Info"
+        color="#fff"
+      />
+    )
   };
 
   navigateAndSave() {
