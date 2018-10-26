@@ -1,6 +1,13 @@
 import React from "react";
-import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
-import { ETravelTypesLabels, EMetroLines } from "../utils/enums";
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  AsyncStorage,
+  Image
+} from "react-native";
+import { ETravelTypesLabels, EMetroLines, ImageStyle } from "../utils/enums";
 
 class NotificationsScreen extends React.Component {
   constructor() {
@@ -12,12 +19,8 @@ class NotificationsScreen extends React.Component {
     };
   }
   static navigationOptions = {
-    title: "Spåris",
-    headerTintColor: "white",
-    headerBackTitle: null,
-    headerStyle: {
-      backgroundColor: "#D26283"
-    }
+    title: "",
+    headerLeft: null
   };
 
   navigateAndSave() {
@@ -47,7 +50,7 @@ class NotificationsScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
           flexDirection: "column",
@@ -55,6 +58,10 @@ class NotificationsScreen extends React.Component {
           backgroundColor: "white"
         }}
       >
+        <Image
+          style={ImageStyle}
+          source={require("../assets/img/notifications.png")}
+        />
         <Text style={{ fontSize: 25, fontWeight: "600" }}>Notifikationer</Text>
         <Text
           style={{
@@ -236,7 +243,7 @@ class NotificationsScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
