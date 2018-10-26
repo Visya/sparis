@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import SlForm from "../components/SlForm";
+import SlForm from "../SlForm";
 
 class FormScreen extends React.Component {
   render() {

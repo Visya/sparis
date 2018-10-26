@@ -4,14 +4,14 @@ import reduce from 'lodash.reduce';
 const staticFields = {
   '[name="data.issue.ext.compensation_type"]': () => 'Prisavdrag',
   '[name="data.issue.date"]': () => 'Idag',
-  '[name="data.issue.time"]': () => getCurrentTime(),
+  '[name="data.issue.time"]': () => '12:34',//getCurrentTime(),
   '[name="data.issue.travel.type"]': 'delayInfo.type',
   '[name="data.issue.travel.destination"]': 'delayInfo.to',
   '[name="data.issue.comment"]': () => 'Hej! Jag försökte genomföra resan enligt det som angivits i formuläret men råkade ut för försening orsakad av er.',
   '[name="data.issue.ticket.type"]': () => 'Biljett på SL Access-kort',
   '[name="data.issue.ext.compensation_refound"]': () => 'Bankkonto',
   '[name="data.issue.contact.person_number"]': 'contactInfo.id',
-  '[name="data.issue.contact.first_name"]': 'contactInfo.name',
+  '[name="data.issue.contact.first_name"]': 'contactInfo.firstname',
   '[name="data.issue.contact.last_name"]': 'contactInfo.surname',
   '[name="data.issue.contact.address.care_of"]': 'contactInfo.co',
   '[name="data.issue.contact.address.street"]': 'contactInfo.address',
@@ -25,23 +25,32 @@ const staticFields = {
 const dynamicFields = {
   '[name="data.issue.compensation.type.priceDeduction.delay"]': 'delayInfo.time',
   '#price_deduction_ticket_type': 'slCard.ticketType',
-  '[name="data.traffic_line_range"]': (data = {}) => isBuss ? getRange(data.delayInfo.line) : null,
-  '[name="data.issue.travel.line"]': 'delayInfo.line',
+  '[name="data.traffic_line_range"]': ({ delayInfo: { type, line } = {} } = {}) => {
+    if (type !== 'Buss') return null;
+
+    if (line <= 293) return '1-293';
+    if (line <= 532) return '301-532';
+    if (line <= 648) return '533-648';
+    if (line <= 795) return '649-795';
+
+    return '796-986';
+  },
+  '[name="data.issue.travel.line"]': 'delayInfo.line.Number',
   '[data-ng-model="data.special.travel.from"]': 'delayInfo.from',
   '[data-ng-model="data.special.travel.to"]': 'delayInfo.to',
-  'travel_card.serial_number1': (data = {}) => data.slCard.cardNumber.substring(5)[0],
-  'travel_card.serial_number2': (data = {}) => data.slCard.cardNumber.substring(5)[1],
+  '[name="travel_card.serial_number1"]': (data = {}) => data.slCard.cardNumber.substring(0, 5),
+  '[name="travel_card.serial_number2"]': (data = {}) => data.slCard.cardNumber.substring(5),
   '[name="data.issue.compensation.refound.bank.clearing"]': 'bankAccount.clearingNumber',
   '[name="data.issue.compensation.refound.bank.account"]': 'bankAccount.account',
 };
 
 
 export const testData = {
-  slCard: { ticketType: 'årsbiljet, vuxen', cardNumber: '1234554321' },
+  slCard: { ticketType: 'Årsbiljett, vuxen', cardNumber: '1234554321' },
   bankAccount: { type: 'Bankkonto', clearingNumber: '12345', account: '12345' },
   contactInfo: {
     id: '199001203434',
-    name: 'Marcus',
+    firstname: 'Marcus',
     surname: 'Mson',
     co: 'Alissa A',
     address: 'Kungsgatan 2',
@@ -53,7 +62,7 @@ export const testData = {
   },
   delayInfo: {
     type: 'Buss',
-    line: '302',
+    line: { Number: '302' },
     from: 'Cityterminalen',
     to: 'Broparken',
     time: '20-39 minuter'
@@ -64,7 +73,7 @@ const helperFunctions = `
 function waitForElToExist(selector, handler, maxDelay) {
   var element = $(selector);
   
-  if (typeof maxDelay === 'undefined') maxDelay = 500;
+  if (typeof maxDelay === 'undefined') maxDelay = 1500;
   if (maxDelay < 0) return;
   
   if (element.length) {
@@ -78,8 +87,6 @@ function waitForElToExist(selector, handler, maxDelay) {
 
 function waitForElementToBeVisible(selector, handler, errorHandler, maxDelay) {
   var isVisible = $(selector).is(':visible');
-  
-  $('.page-header').append('<p>blah' + isVisible + ' ' + maxDelay + '</p>')
   
   if (maxDelay <= 0) {
     errorHandler();
@@ -107,16 +114,26 @@ function findValue(selector, value) {
 `;
 
 export function convertDataToInstructions(data) {
-  const staticFieldsScript = reduce(staticFields, (result, selector, fn) => {
-    const value = typeof fn === 'function' ? fn(data) : get(data, fn);
-    return `${result}$('${selector}').val(findValue(${value})).change()\n`;
+  const staticFieldsScript = reduce(staticFields, (result, valueGetter, selector) => {
+    const value = typeof valueGetter === 'function' ? valueGetter(data) : get(data, valueGetter);
+
+    if (value === null) {
+      return result;
+    }
+
+    return `${result}$('${selector}').val(findValue('${selector}', '${value}')).change();\n`;
   }, '');
 
-  const dynamicFieldsScript = reduce(dynamicFields, (result, selector, fn) => {
-    const value = typeof fn === 'function' ? fn(data) : get(data, fn);
+  const dynamicFieldsScript = reduce(dynamicFields, (result, valueGetter, selector) => {
+    const value = typeof valueGetter === 'function' ? valueGetter(data) : get(data, valueGetter);
+
+    if (value === null) {
+      return result;
+    }
+
     return `${result}
       waitForElToExist('${selector}', function(el) {
-        el.val(findValue(${value})).change();
+        el.val(findValue('${selector}', '${value}')).change();
       });
     `;
   }, '');
