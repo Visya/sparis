@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import { ETimeFrames, ETravelTypesLabels, ImageStyle } from "../utils/enums";
-import SlForm from "../SlForm";
+import SlForm from "../components/SlForm";
 import HeaderLeft from "../components/HeaderLeft";
 import HeaderRight from "../components/HeaderRight";
 
@@ -582,7 +582,7 @@ class CompensationScreen extends React.Component {
                     marginTop: !this.state.dropdown ? 50 : 35,
                     marginBottom: 100
                   }}
-                >
+                 >
                   <Text
                     style={{
                       color: "white",
