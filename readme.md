@@ -20,4 +20,4 @@ This app is built during the hackathon Trainhack 2018 to make it easier to get c
 
 - JavaScript ✌️
 - React-Native ⚛️
-- ...
+- 💖
