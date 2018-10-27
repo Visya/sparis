@@ -1,6 +1,6 @@
 # Spåris
 
-A better and easier way to request compensation from SL after a bus or metro arrives late
+A better and easier way to request compensation from SL if a bus, metro or pendeltåg arrives late.
 
 [![Watch the video](.github/thumbnail.png)](https://www.youtube.com/watch?v=zg6lYpeCK8g)
 
@@ -17,9 +17,6 @@ And run the client by running the following. You will get a choice to run the pr
 ## About the project
 
 This app is built during the hackathon Trainhack 2018 to make it easier to get compensation for late busses and metros. Today most people don't even know that you can get some money back when SL's busses and trains are late. This is also usually really annyoing to fill in and it takes a lot of time. With this project the goal is to make a better and easier way for people to get compensation.
-
-## Inspiration
-The project was inspired by the difficulty in applying for delay compensation (Förseningsersättning) on the SL homepage. Instead of a long and complicated form we wanted to make a simple app where people could apply for compensation right away as they are being delayed or shortly after.
 
 ## Built with
 
