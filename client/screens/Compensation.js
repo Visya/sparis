@@ -26,7 +26,7 @@ class CompensationScreen extends React.Component {
     this.state = {
       type: "",
       line: "",
-      hasError: false,
+      hasError: false
     };
 
     this.handleError = this.handleError.bind(this);
@@ -92,7 +92,7 @@ class CompensationScreen extends React.Component {
     this.setState({
       data: storageData,
       submitted: true,
-      hasError: false,
+      hasError: false
     });
   }
 
@@ -119,7 +119,7 @@ class CompensationScreen extends React.Component {
           backgroundColor: this.state.hasError ? "rgba(0,0,0,0)" : "white"
         }}
       >
-        {!this.state.hasError &&
+        {!this.state.hasError && (
           <ScrollView>
             <Image
               style={ImageStyle}
@@ -569,7 +569,10 @@ class CompensationScreen extends React.Component {
                 alignItems: "center"
               }}
             >
-              <TouchableOpacity onPress={() => this.handleSubmit()} disabled={this.state.submitted}>
+              <TouchableOpacity
+                onPress={() => this.handleSubmit()}
+                disabled={this.state.submitted}
+              >
                 <View
                   style={{
                     padding: 15,
@@ -587,22 +590,29 @@ class CompensationScreen extends React.Component {
                       fontWeight: "600"
                     }}
                   >
-                    {this.state.submitted ? 'Laddar...' : 'Begär ersättning'}
+                    {this.state.submitted ? "Laddar..." : "Begär ersättning"}
                   </Text>
                 </View>
               </TouchableOpacity>
             </View>
           </ScrollView>
-        }
-        {this.state.submitted &&
-            <View hidden={!this.state.hasError} style={{ flex: 1 }}>
-              <Text style={{ fontSize: 16, fontWeight: "600", color: '#912b4a' }}>Var vänlig och fyll i formuläret korrekt: {this.state.error}</Text>
-              <SlForm
+        )}
+        {this.state.submitted && (
+          <View
+            style={
+              !this.state.hasError ? { display: "none", flex: 1 } : { flex: 1 }
+            }
+          >
+            <Text style={{ fontSize: 16, fontWeight: "600", color: "#912b4a" }}>
+              Var vänlig och fyll i formuläret korrekt: {this.state.error}
+            </Text>
+            <SlForm
               data={this.state.data}
               handleSuccess={this.handleSuccess}
-              handleError={this.handleError}/>
-            </View>
-        }
+              handleError={this.handleError}
+            />
+          </View>
+        )}
       </View>
     );
   }

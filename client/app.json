@@ -1,11 +1,14 @@
 {
   "expo": {
-    "name": "sl-broke-app",
+    "name": "Spåris",
     "description": "This project is really great.",
-    "slug": "sl-broke-app",
+    "slug": "sparis",
     "privacy": "public",
     "sdkVersion": "30.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
