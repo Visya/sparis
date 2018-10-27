@@ -4,7 +4,13 @@ import reduce from 'lodash.reduce';
 const staticFields = {
   '[name="data.issue.ext.compensation_type"]': () => 'Prisavdrag',
   '[name="data.issue.date"]': () => 'Idag',
-  '[name="data.issue.time"]': () => '12:34',//getCurrentTime(),
+  '[name="data.issue.time"]': () => {
+    var d = new Date();
+    var h = (d.getHours() < 10 ? '0' : '') + d.getHours();
+    var m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+
+    return h + ':' + m;
+  },
   '[name="data.issue.travel.type"]': 'delayInfo.type',
   '[name="data.issue.travel.destination"]': 'delayInfo.to',
   '[name="data.issue.comment"]': () => 'Hej! Jag försökte genomföra resan enligt det som angivits i formuläret men råkade ut för försening orsakad av er.',
@@ -35,7 +41,7 @@ const dynamicFields = {
 
     return '796-986';
   },
-  '[name="data.issue.travel.line"]': 'delayInfo.line.Number',
+  '#traffic_line': 'delayInfo.line.Number',
   '[data-ng-model="data.special.travel.from"]': 'delayInfo.from',
   '[data-ng-model="data.special.travel.to"]': 'delayInfo.to',
   '[name="data.issue.compensation.from"]': 'delayInfo.from',
@@ -51,7 +57,7 @@ export const testData = {
   slCard: { ticketType: 'Årsbiljett, vuxen', cardNumber: '1234554321' },
   bankAccount: { type: 'Bankkonto', clearingNumber: '12345', account: '54321' },
   contactInfo: {
-    id: '199001203434',
+    id: '19900121-0708',
     firstname: 'Marcus',
     surname: 'Mson',
     co: 'Alissa A',
@@ -65,8 +71,8 @@ export const testData = {
   delayInfo: {
     type: 'Buss',
     line: { Number: '302' },
-    from: 'Cityterminalen',
-    to: 'Broparken',
+    from: 'Drottningholm',
+    to: 'Brostugan',
     time: '20-39 minuter'
   }
 };
@@ -75,11 +81,21 @@ const helperFunctions = `
 function waitForElToExist(selector, handler, maxDelay) {
   var element = $(selector);
   
-  if (typeof maxDelay === 'undefined') maxDelay = 1500;
+  if (typeof maxDelay === 'undefined') maxDelay = 10000;
   if (maxDelay < 0) return;
   
   if (element.length) {
-    handler(element);
+    if ([
+          '#traffic_line', 
+          '[data-ng-model="data.special.travel.from"]',
+          '[data-ng-model="data.special.travel.to"]'
+        ].includes(selector)) {
+      setTimeout(function() {
+        handler($(selector))
+      }, 1000);
+    } else {
+      handler(element);
+    }
   } else {
     setTimeout(function() {
       waitForElToExist(selector, handler, maxDelay - 500);
@@ -154,7 +170,9 @@ export function createScript(data) {
     
     ${convertDataToInstructions(data)}
     
-    //$('.refund-form [type='submit']').click();
+    setTimeout(function() {
+      $('.refund-form [type="submit"]').click();
+    }, 5000); 
     
     waitForElementToBeVisible('#refundFormReceipt', function() {
       //$('#refundFormReceipt .button-primary').click() 
