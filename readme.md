@@ -2,7 +2,7 @@
 
 A better and easier way to request compensation from SL after a bus or metro arrives late
 
-[![Watch the video](/.github/sparis-thumbnail.png)](https://www.youtube.com/watch?v=zg6lYpeCK8g)
+[![Watch the video](.github/thumbnail.png)](https://www.youtube.com/watch?v=zg6lYpeCK8g)
 
 ## Installation
 
