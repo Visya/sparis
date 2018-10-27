@@ -13,7 +13,8 @@ const staticFields = {
   },
   '[name="data.issue.travel.type"]': 'delayInfo.type',
   '[name="data.issue.travel.destination"]': 'delayInfo.to',
-  '[name="data.issue.comment"]': () => 'Hej! Jag försökte genomföra resan enligt det som angivits i formuläret men råkade ut för försening orsakad av er.',
+  '[name="data.issue.comment"]': () => 'Testmeddelande! Betala ej ut.',
+  // '[name="data.issue.comment"]': () => 'Hej! Jag försökte genomföra resan enligt det som angivits i formuläret men råkade ut för försening orsakad av er.',
   '[name="data.issue.ticket.type"]': () => 'Biljett på SL Access-kort',
   '[name="data.issue.ext.compensation_refound"]': () => 'Bankkonto',
   '[name="data.issue.contact.person_number"]': 'contactInfo.id',
@@ -55,9 +56,9 @@ const dynamicFields = {
 
 export const testData = {
   slCard: { ticketType: 'Årsbiljett, vuxen', cardNumber: '1234554321' },
-  bankAccount: { type: 'Bankkonto', clearingNumber: '12345', account: '54321' },
+  bankAccount: { type: 'Bankkonto', clearingNumber: '3300', account: '8002205964' },
   contactInfo: {
-    id: '19900121-0708',
+    id: '19800220-5964',
     firstname: 'Marcus',
     surname: 'Mson',
     co: 'Alissa A',
