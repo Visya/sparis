@@ -579,7 +579,8 @@ class CompensationScreen extends React.Component {
                     width: 250,
                     borderRadius: 5,
                     backgroundColor: "#62D288",
-                    marginTop: !this.state.dropdown ? 50 : 35
+                    marginTop: !this.state.dropdown ? 50 : 35,
+                    marginBottom: 100
                   }}
                 >
                   <Text
