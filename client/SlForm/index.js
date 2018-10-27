@@ -4,6 +4,20 @@ import { WebView } from "react-native";
 import { createScript, testData } from "./create-script";
 
 class SlForm extends Component {
+  constructor() {
+    super();
+
+    this.handleFormResult = this.handleFormResult.bind(this);
+  }
+
+  handleFormResult({ nativeEvent: { data: message } = {} } = {}) {
+    if (message === 'OK') {
+      this.props.handleSuccess();
+    } else {
+      this.props.handleError(message);
+    }
+  }
+
   render() {
     const { data = testData } = this.props;
 
@@ -16,7 +30,7 @@ class SlForm extends Component {
         }}
         style={{ marginTop: 20 }}
         injectedJavaScript={createScript(data)}
-        onMessage={event => console.log(event.nativeEvent.data)}
+        onMessage={this.handleFormResult}
         javaScriptEnabled={true}
       />
     );

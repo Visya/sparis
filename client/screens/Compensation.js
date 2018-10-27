@@ -25,8 +25,12 @@ class CompensationScreen extends React.Component {
     super();
     this.state = {
       type: "",
-      line: ""
+      line: "",
+      hasError: false,
     };
+
+    this.handleError = this.handleError.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -39,8 +43,6 @@ class CompensationScreen extends React.Component {
   };
 
   async handleSubmit() {
-    const { navigate } = this.props.navigation;
-
     const getTicketData = async () => {
       let ticketData = "";
       try {
@@ -89,8 +91,20 @@ class CompensationScreen extends React.Component {
 
     this.setState({
       data: storageData,
-      submitted: true
+      submitted: true,
+      hasError: false,
     });
+  }
+
+  handleError(message) {
+    this.setState({
+      hasError: true,
+      error: message
+    });
+  }
+
+  handleSuccess() {
+    const { navigate } = this.props.navigation;
 
     navigate("Yay", {});
   }
@@ -102,10 +116,10 @@ class CompensationScreen extends React.Component {
           flex: 1,
           flexDirection: "column",
           padding: 20,
-          backgroundColor: !this.state.submitted ? "white" : "rgba(0,0,0, 0)"
+          backgroundColor: this.state.hasError ? "rgba(0,0,0,0)" : "white"
         }}
       >
-        {!this.state.submitted ? (
+        {!this.state.hasError &&
           <ScrollView>
             <Image
               style={ImageStyle}
@@ -555,7 +569,7 @@ class CompensationScreen extends React.Component {
                 alignItems: "center"
               }}
             >
-              <TouchableOpacity onPress={() => this.handleSubmit()}>
+              <TouchableOpacity onPress={() => this.handleSubmit()} disabled={this.state.submitted}>
                 <View
                   style={{
                     padding: 15,
@@ -573,15 +587,22 @@ class CompensationScreen extends React.Component {
                       fontWeight: "600"
                     }}
                   >
-                    Begär ersättning
+                    {this.state.submitted ? 'Laddar...' : 'Begär ersättning'}
                   </Text>
                 </View>
               </TouchableOpacity>
             </View>
           </ScrollView>
-        ) : (
-          <SlForm data={this.state.data} />
-        )}
+        }
+        {this.state.submitted &&
+            <View hidden={!this.state.hasError} style={{ flex: 1 }}>
+              <Text style={{ fontSize: 16, fontWeight: "600", color: '#912b4a' }}>Var vänlig och fyll i formuläret korrekt: {this.state.error}</Text>
+              <SlForm
+              data={this.state.data}
+              handleSuccess={this.handleSuccess}
+              handleError={this.handleError}/>
+            </View>
+        }
       </View>
     );
   }

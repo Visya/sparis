@@ -176,9 +176,10 @@ export function createScript(data) {
     }, 5000); 
     
     waitForElementToBeVisible('#refundFormReceipt', function() {
-      //$('#refundFormReceipt .button-primary').click() 
+      window.postMessage('OK'); 
     }, function() {
-      window.postMessage('Oh no!')
+      var errorMessage = $('.refund-form .form-error p').text();
+      window.postMessage(errorMessage);
     }, 10000);
     
     })();
