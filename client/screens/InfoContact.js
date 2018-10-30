@@ -6,12 +6,10 @@ import {
   TouchableOpacity,
   TextInput,
   AsyncStorage,
-  Button,
-  Image
+  Image,
+  StyleSheet
 } from "react-native";
-
 import KeyboardAvoid from "../components/KeyboardAvoid";
-import { ImageStyle } from "../utils/enums";
 
 class InfoContactScreen extends React.Component {
   constructor() {
@@ -59,38 +57,18 @@ class InfoContactScreen extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
-
     return (
-      <KeyboardAvoid
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          padding: 20,
-          backgroundColor: "white"
-        }}
-      >
+      <KeyboardAvoid style={styles.ScreenWrapper}>
         <ScrollView>
           <Image
-            style={ImageStyle}
+            style={styles.Image}
             source={require("../assets/img/contactinfo.png")}
           />
-          <Text style={{ fontSize: 25, fontWeight: "600" }}>
-            Dina kontaktuppgifter
-          </Text>
+          <Text style={styles.Title}>Dina kontaktuppgifter</Text>
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Förnamn"
             onChangeText={text => this.setState({ firstname: text })}
             value={this.state.firstname}
@@ -98,16 +76,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Efternamn"
             onChangeText={text => this.setState({ surname: text })}
             value={this.state.surname}
@@ -115,16 +84,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Personnummer"
             onChangeText={text => this.setState({ id: text })}
             value={this.state.id}
@@ -132,16 +92,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Telefonnummer"
             onChangeText={text => this.setState({ phone: text })}
             value={this.state.phone}
@@ -149,16 +100,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="C/O"
             onChangeText={text => this.setState({ co: text })}
             value={this.state.co}
@@ -166,16 +108,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Gatuadress"
             onChangeText={text => this.setState({ adress: text })}
             value={this.state.adress}
@@ -183,16 +116,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Postnummer"
             onChangeText={text => this.setState({ zip: text })}
             value={this.state.zip}
@@ -200,16 +124,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Ort"
             onChangeText={text => this.setState({ city: text })}
             value={this.state.city}
@@ -217,16 +132,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Land"
             onChangeText={text => this.setState({ country: text })}
             value={this.state.country}
@@ -234,16 +140,7 @@ class InfoContactScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="E-postadress"
             onChangeText={text => this.setState({ email: text })}
             value={this.state.email}
@@ -257,25 +154,12 @@ class InfoContactScreen extends React.Component {
           >
             <TouchableOpacity onPress={() => this.navigateAndSave()}>
               <View
-                style={{
-                  padding: 15,
-                  width: 250,
-                  borderRadius: 5,
-                  backgroundColor: "#D26283",
-                  marginTop: !this.state.dropdown ? 50 : 35,
-                  marginBottom: 50
-                }}
+                style={[
+                  styles.Button,
+                  { marginTop: !this.state.dropdown ? 50 : 35 }
+                ]}
               >
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: 20,
-                    fontWeight: "600"
-                  }}
-                >
-                  Gå vidare
-                </Text>
+                <Text style={styles.ButtonText}>Gå vidare</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -284,5 +168,47 @@ class InfoContactScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  ScreenWrapper: {
+    flex: 1,
+    flexDirection: "column",
+    padding: 20,
+    backgroundColor: "white"
+  },
+  Image: {
+    width: 195,
+    height: 195,
+    alignSelf: "center",
+    marginBottom: 32
+  },
+  Title: {
+    fontSize: 25,
+    fontWeight: "600"
+  },
+  InputField: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 16,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  Button: {
+    padding: 15,
+    width: 250,
+    borderRadius: 5,
+    backgroundColor: "#D26283",
+    marginBottom: 50
+  },
+  ButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "600"
+  }
+});
 
 export default InfoContactScreen;

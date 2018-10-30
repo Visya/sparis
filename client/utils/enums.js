@@ -1,10 +1,3 @@
-export const ETravelMethods = {
-  Tunnelbana: 1,
-  Järnväg: 2,
-  Buss: 3,
-  Spårvagn: 4
-};
-
 export const ETravelTypesLabels = ["Tunnelbana", "Järnväg", "Buss", "Spårvagn"];
 
 export const ETravelTypes = ["TRAM", "TRAIN", "BUS", "SHIP", "METRO"];
@@ -26,14 +19,6 @@ export const ECards = {
   App: 3
 };
 
-export const EStations = [
-  "Stockholm Central",
-  "Åre",
-  "Västerås",
-  "Malmö",
-  "Göteborg"
-];
-
 export const ETimeFrames = [
   "20-39 minuter",
   "40-59 minuter",
@@ -41,10 +26,3 @@ export const ETimeFrames = [
 ];
 
 export const EBankAccounts = ["Bankgiro", "Plusgiro", "Bankkonto"];
-
-export const ImageStyle = {
-  width: 195,
-  height: 195,
-  alignSelf: "center",
-  marginBottom: 32
-};

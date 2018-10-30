@@ -7,11 +7,10 @@ import {
   TextInput,
   AsyncStorage,
   Image,
-  KeyboardAvoidingView,
-  Platform
+  StyleSheet
 } from "react-native";
 import KeyboardAvoid from "../components/KeyboardAvoid";
-import { ECards, ECardsLabels, ImageStyle } from "../utils/enums";
+import { ECardsLabels } from "../utils/enums";
 
 class InfoTicketScreen extends React.Component {
   constructor() {
@@ -58,27 +57,13 @@ class InfoTicketScreen extends React.Component {
 
     return (
       <ScrollView>
-        <KeyboardAvoid
-          style={{
-            flexDirection: "column",
-            padding: 20,
-            backgroundColor: "white"
-          }}
-        >
+        <KeyboardAvoid style={styles.ScreenWrapper}>
           <Image
-            style={ImageStyle}
+            style={styles.Image}
             source={require("../assets/img/ticket.png")}
           />
-          <Text style={{ fontSize: 25, fontWeight: "600" }}>
-            Dina uppgifter - biljett
-          </Text>
-          <Text
-            style={{
-              paddingTop: 10,
-              lineHeight: 20,
-              opacity: 0.85
-            }}
-          >
+          <Text style={styles.Title}>Dina uppgifter - biljett</Text>
+          <Text style={styles.Paragraph}>
             Här fyller du i dina uppgifter som vi använder för att fylla i
             formuläret åt dig. Dina uppgifter lagras på din mobiltelefon och
             skickas endast till SL i samband med att du ansöker om
@@ -90,18 +75,7 @@ class InfoTicketScreen extends React.Component {
               this.setState({ dropdown: this.state.dropdown ? false : true })
             }
           >
-            <View
-              style={{
-                marginTop: 20,
-                borderWidth: 1,
-                borderColor: "lightgrey",
-                borderRadius: 5,
-                padding: 16,
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center"
-              }}
-            >
+            <View style={styles.DropdownButton}>
               <Text>
                 {this.state.ticketType
                   ? this.state.ticketType
@@ -112,15 +86,7 @@ class InfoTicketScreen extends React.Component {
           </TouchableOpacity>
 
           {this.state.dropdown && (
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "lightgrey",
-                borderRadius: 5,
-                padding: 10,
-                marginTop: 10
-              }}
-            >
+            <View style={styles.DropdownList}>
               {ECardsLabels.map(card => {
                 return (
                   <TouchableOpacity
@@ -132,21 +98,8 @@ class InfoTicketScreen extends React.Component {
                       });
                     }}
                   >
-                    <View
-                      style={{
-                        padding: 10,
-                        backgroundColor: "#f3f3f3",
-                        marginBottom: 10,
-                        borderRadius: 3
-                      }}
-                    >
-                      <Text
-                        key={card}
-                        style={{
-                          color: "#222",
-                          fontSize: 16
-                        }}
-                      >
+                    <View style={styles.DropdownItem}>
+                      <Text key={card} style={styles.DropdownItemText}>
                         {card}
                       </Text>
                     </View>
@@ -158,48 +111,21 @@ class InfoTicketScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Kortnummer"
             onChangeText={text => this.setState({ cardNumber: text })}
             value={this.state.cardNumber}
           />
 
-          <View
-            style={{
-              flex: 2,
-              alignItems: "center"
-            }}
-          >
+          <View style={styles.ButtonWrapper}>
             <TouchableOpacity onPress={() => this.navigateAndSave()}>
               <View
-                style={{
-                  padding: 15,
-                  width: 250,
-                  borderRadius: 5,
-                  backgroundColor: "#D26283",
-                  marginTop: !this.state.dropdown ? 50 : 35,
-                  marginBottom: 100
-                }}
+                style={[
+                  styles.Button,
+                  { marginTop: !this.state.dropdown ? 50 : 35 }
+                ]}
               >
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: 20,
-                    fontWeight: "600"
-                  }}
-                >
-                  Gå vidare
-                </Text>
+                <Text style={styles.ButtonText}>Gå vidare</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -208,5 +134,79 @@ class InfoTicketScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  ScreenWrapper: {
+    flexDirection: "column",
+    padding: 20,
+    backgroundColor: "white"
+  },
+  Title: { fontSize: 25, fontWeight: "600" },
+  Image: {
+    width: 195,
+    height: 195,
+    alignSelf: "center",
+    marginBottom: 32
+  },
+  Paragraph: {
+    paddingTop: 10,
+    lineHeight: 20,
+    opacity: 0.85
+  },
+  DropdownButton: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 16,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  DropdownList: {
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10
+  },
+  DropdownItem: {
+    padding: 10,
+    backgroundColor: "#f3f3f3",
+    marginBottom: 10,
+    borderRadius: 3
+  },
+  DropdownItemText: {
+    color: "#222",
+    fontSize: 16
+  },
+  InputField: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 16,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  ButtonWrapper: {
+    flex: 2,
+    alignItems: "center"
+  },
+  Button: {
+    padding: 15,
+    width: 250,
+    borderRadius: 5,
+    backgroundColor: "#D26283",
+    marginBottom: 100
+  },
+  ButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "600"
+  }
+});
 
 export default InfoTicketScreen;

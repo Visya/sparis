@@ -6,10 +6,11 @@ import {
   TextInput,
   AsyncStorage,
   Image,
-  ScrollView
+  ScrollView,
+  StyleSheet
 } from "react-native";
 import KeyboardAvoid from "../components/KeyboardAvoid";
-import { EBankAccounts, ImageStyle } from "../utils/enums";
+import { EBankAccounts } from "../utils/enums";
 
 class InfoBankScreen extends React.Component {
   constructor() {
@@ -55,49 +56,21 @@ class InfoBankScreen extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
-
     return (
-      <KeyboardAvoid
-        // style={{
-        //   flex: 1,
-        //   flexDirection: "column",
-        //   padding: 20,
-        //   backgroundColor: "white"
-        // }}
-        style={{
-          flexDirection: "column",
-          padding: 20,
-          backgroundColor: "white",
-          flex: 1
-        }}
-      >
-        <ScrollView style={{ backgroundColor: "white" }}>
+      <KeyboardAvoid style={styles.ScreenWrapper}>
+        <ScrollView style={styles.ScrollWrapper}>
           <Image
-            style={ImageStyle}
+            style={styles.Image}
             source={require("../assets/img/bankaccount.png")}
           />
-          <Text style={{ fontSize: 25, fontWeight: "600" }}>
-            Dina uppgifter - bankkonto
-          </Text>
+          <Text style={styles.Title}>Dina uppgifter - bankkonto</Text>
 
           <TouchableOpacity
             onPress={() =>
               this.setState({ dropdown: this.state.dropdown ? false : true })
             }
           >
-            <View
-              style={{
-                marginTop: 20,
-                borderWidth: 1,
-                borderColor: "lightgrey",
-                borderRadius: 5,
-                padding: 16,
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center"
-              }}
-            >
+            <View style={styles.DropdownButton}>
               <Text>
                 {this.state.type ? this.state.type : "Välj en korttyp"}
               </Text>
@@ -106,15 +79,7 @@ class InfoBankScreen extends React.Component {
           </TouchableOpacity>
 
           {this.state.dropdown && (
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "lightgrey",
-                borderRadius: 5,
-                padding: 10,
-                marginTop: 10
-              }}
-            >
+            <View style={styles.DropdownList}>
               {EBankAccounts.map(account => {
                 return (
                   <TouchableOpacity
@@ -126,21 +91,8 @@ class InfoBankScreen extends React.Component {
                       });
                     }}
                   >
-                    <View
-                      style={{
-                        padding: 10,
-                        backgroundColor: "#f3f3f3",
-                        marginBottom: 10,
-                        borderRadius: 3
-                      }}
-                    >
-                      <Text
-                        key={account}
-                        style={{
-                          color: "#222",
-                          fontSize: 16
-                        }}
-                      >
+                    <View style={styles.DropdownItem}>
+                      <Text key={account} style={styles.DropdownItemText}>
                         {account}
                       </Text>
                     </View>
@@ -152,16 +104,7 @@ class InfoBankScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Clearingnr"
             onChangeText={text => this.setState({ clearingNumber: text })}
             value={this.state.clearingNumber}
@@ -169,46 +112,21 @@ class InfoBankScreen extends React.Component {
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
-            style={{
-              marginTop: 20,
-              borderWidth: 1,
-              borderColor: "lightgrey",
-              borderRadius: 5,
-              padding: 16,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={styles.InputField}
             placeholder="Kontonummer"
             onChangeText={text => this.setState({ account: text })}
             value={this.state.account}
           />
 
-          <View
-            style={{
-              alignItems: "center"
-            }}
-          >
+          <View style={styles.ButtonWrapper}>
             <TouchableOpacity onPress={() => this.navigateAndSave()}>
               <View
-                style={{
-                  padding: 15,
-                  width: 250,
-                  borderRadius: 5,
-                  backgroundColor: "#D26283",
-                  marginTop: !this.state.dropdown ? 50 : 35
-                }}
+                style={[
+                  styles.Button,
+                  { marginTop: !this.state.dropdown ? 50 : 35 }
+                ]}
               >
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: 20,
-                    fontWeight: "600"
-                  }}
-                >
-                  Gå vidare
-                </Text>
+                <Text style={styles.ButtonText}>Gå vidare</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -217,5 +135,79 @@ class InfoBankScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  ScreenWrapper: {
+    flexDirection: "column",
+    padding: 20,
+    backgroundColor: "white",
+    flex: 1
+  },
+  ScrollWrapper: {
+    backgroundColor: "white"
+  },
+  Image: {
+    width: 195,
+    height: 195,
+    alignSelf: "center",
+    marginBottom: 32
+  },
+  Title: {
+    fontSize: 25,
+    fontWeight: "600"
+  },
+  DropdownButton: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 16,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  DropdownList: {
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10
+  },
+  DropdownItem: {
+    padding: 10,
+    backgroundColor: "#f3f3f3",
+    marginBottom: 10,
+    borderRadius: 3
+  },
+  DropdownItemText: {
+    color: "#222",
+    fontSize: 16
+  },
+  InputField: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 16,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  ButtonWrapper: {
+    alignItems: "center"
+  },
+  Button: {
+    padding: 15,
+    width: 250,
+    borderRadius: 5,
+    backgroundColor: "#D26283"
+  },
+  ButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "600"
+  }
+});
 
 export default InfoBankScreen;

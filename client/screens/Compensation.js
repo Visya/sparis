@@ -5,10 +5,11 @@ import {
   Text,
   TouchableOpacity,
   AsyncStorage,
-  Image
+  Image,
+  StyleSheet
 } from "react-native";
 
-import { ETimeFrames, ETravelTypesLabels, ImageStyle } from "../utils/enums";
+import { ETimeFrames, ETravelTypesLabels } from "../utils/enums";
 import SlForm from "../components/SlForm";
 import HeaderLeft from "../components/HeaderLeft";
 import HeaderRight from "../components/HeaderRight";
@@ -112,39 +113,23 @@ class CompensationScreen extends React.Component {
   render() {
     return (
       <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          padding: 20,
-          backgroundColor: this.state.hasError ? "rgba(0,0,0,0)" : "white"
-        }}
+        style={[
+          styles.ScreenWrapper,
+          { backgroundColor: this.state.hasError ? "rgba(0,0,0,0)" : "white" }
+        ]}
       >
         {!this.state.hasError && (
           <ScrollView>
             <Image
-              style={ImageStyle}
+              style={styles.Image}
               source={require("../assets/img/money.png")}
             />
-            <Text style={{ fontSize: 25, fontWeight: "600" }}>
-              Be om Förseningsersättning
-            </Text>
-            <Text
-              style={{
-                paddingTop: 10,
-                lineHeight: 20,
-                opacity: 0.85
-              }}
-            >
+            <Text style={styles.Title}>Be om Förseningsersättning</Text>
+            <Text style={styles.Paragraph}>
               Fyll i informationen nedan för att be om förseningsersättning.
             </Text>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: 20
-              }}
-            >
+            <View style={styles.ChoiceWrapper}>
               {ETravelTypesLabels.map(type => {
                 return (
                   <TouchableOpacity
@@ -152,19 +137,15 @@ class CompensationScreen extends React.Component {
                     onPress={() => this.setState({ type: type })}
                   >
                     <View
-                      style={{
-                        padding: 25,
-                        paddingLeft: 30,
-                        borderRadius: 5,
-                        paddingRight: 30,
-                        borderWidth: 1,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        borderColor:
-                          this.state.type === type ? "#D26283" : "lightgrey",
-                        backgroundColor:
-                          this.state.type === type ? "#D26283" : "white"
-                      }}
+                      style={[
+                        styles.Choice,
+                        {
+                          borderColor:
+                            this.state.type === type ? "#D26283" : "lightgrey",
+                          backgroundColor:
+                            this.state.type === type ? "#D26283" : "white"
+                        }
+                      ]}
                     >
                       <Text
                         style={{
@@ -185,23 +166,8 @@ class CompensationScreen extends React.Component {
                 this.setState({ dropdown: this.state.dropdown ? false : true })
               }
             >
-              <View
-                style={{
-                  marginTop: 20,
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 16,
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center"
-                }}
-              >
+              <View style={styles.DropdownButton}>
                 <Text>
-                  {/* Välj en{" "}
-              {this.state.line ? this.state.line.Number : this.state.type}
-              -linje */}
-
                   {this.state.line
                     ? this.state.line.GroupOfLine + " " + this.state.line.Number
                     : `Välj en ${this.state.type}-linje`}
@@ -211,15 +177,7 @@ class CompensationScreen extends React.Component {
             </TouchableOpacity>
 
             {this.state.dropdown && (
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 10,
-                  marginTop: 10
-                }}
-              >
+              <View style={styles.DropdownList}>
                 {this.state.type === "Spårvagn" &&
                   TramLines.data.Result.map(line => {
                     return (
@@ -232,20 +190,8 @@ class CompensationScreen extends React.Component {
                           });
                         }}
                       >
-                        <View
-                          style={{
-                            padding: 10,
-                            backgroundColor: "#f3f3f3",
-                            marginBottom: 10,
-                            borderRadius: 3
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#222",
-                              fontSize: 16
-                            }}
-                          >
+                        <View style={styles.DropdownItem}>
+                          <Text style={styles.DropdownItemText}>
                             {line.Number}
                           </Text>
                         </View>
@@ -265,20 +211,8 @@ class CompensationScreen extends React.Component {
                           });
                         }}
                       >
-                        <View
-                          style={{
-                            padding: 10,
-                            backgroundColor: "#f3f3f3",
-                            marginBottom: 10,
-                            borderRadius: 3
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#222",
-                              fontSize: 16
-                            }}
-                          >
+                        <View style={styles.DropdownItem}>
+                          <Text style={styles.DropdownItemText}>
                             {line.Number}
                           </Text>
                         </View>
@@ -298,20 +232,8 @@ class CompensationScreen extends React.Component {
                           });
                         }}
                       >
-                        <View
-                          style={{
-                            padding: 10,
-                            backgroundColor: "#f3f3f3",
-                            marginBottom: 10,
-                            borderRadius: 3
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#222",
-                              fontSize: 16
-                            }}
-                          >
+                        <View style={styles.DropdownItem}>
+                          <Text style={styles.DropdownItemText}>
                             {line.Number}
                           </Text>
                         </View>
@@ -331,20 +253,8 @@ class CompensationScreen extends React.Component {
                           });
                         }}
                       >
-                        <View
-                          style={{
-                            padding: 10,
-                            backgroundColor: "#f3f3f3",
-                            marginBottom: 10,
-                            borderRadius: 3
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#222",
-                              fontSize: 16
-                            }}
-                          >
+                        <View style={styles.DropdownItem}>
+                          <Text style={styles.DropdownItemText}>
                             {line.Number}
                           </Text>
                         </View>
@@ -362,18 +272,7 @@ class CompensationScreen extends React.Component {
                 })
               }
             >
-              <View
-                style={{
-                  marginTop: 20,
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 16,
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center"
-                }}
-              >
+              <View style={styles.DropdownButton}>
                 <Text>
                   {this.state.from ? this.state.from : "Din startstation"}
                 </Text>
@@ -382,15 +281,7 @@ class CompensationScreen extends React.Component {
             </TouchableOpacity>
 
             {this.state.dropdown2 && (
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 10,
-                  marginTop: 10
-                }}
-              >
+              <View style={styles.DropdownList}>
                 {BusStations.data.Result.map(station => {
                   return (
                     <TouchableOpacity
@@ -402,20 +293,8 @@ class CompensationScreen extends React.Component {
                         });
                       }}
                     >
-                      <View
-                        style={{
-                          padding: 10,
-                          backgroundColor: "#f3f3f3",
-                          marginBottom: 10,
-                          borderRadius: 3
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "#222",
-                            fontSize: 16
-                          }}
-                        >
+                      <View style={styles.DropdownItem}>
+                        <Text style={styles.DropdownItemText}>
                           {station.Name}
                         </Text>
                       </View>
@@ -433,33 +312,14 @@ class CompensationScreen extends React.Component {
                 })
               }
             >
-              <View
-                style={{
-                  marginTop: 20,
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 16,
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center"
-                }}
-              >
+              <View style={styles.DropdownButton}>
                 <Text>{this.state.to ? this.state.to : "Din slutstation"}</Text>
                 {this.state.dropdown3 ? <Text>-</Text> : <Text>+</Text>}
               </View>
             </TouchableOpacity>
 
             {this.state.dropdown3 && (
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 10,
-                  marginTop: 10
-                }}
-              >
+              <View style={styles.DropdownList}>
                 {BusStations.data.Result.map(station => {
                   return (
                     <TouchableOpacity
@@ -471,20 +331,8 @@ class CompensationScreen extends React.Component {
                         });
                       }}
                     >
-                      <View
-                        style={{
-                          padding: 10,
-                          backgroundColor: "#f3f3f3",
-                          marginBottom: 10,
-                          borderRadius: 3
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "#222",
-                            fontSize: 16
-                          }}
-                        >
+                      <View style={styles.DropdownItem}>
+                        <Text style={styles.DropdownItemText}>
                           {station.Name}
                         </Text>
                       </View>
@@ -502,33 +350,14 @@ class CompensationScreen extends React.Component {
                 })
               }
             >
-              <View
-                style={{
-                  marginTop: 20,
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 16,
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center"
-                }}
-              >
+              <View style={styles.DropdownButton}>
                 <Text>{this.state.time ? this.state.time : "Tidpunkt"}</Text>
                 {this.state.dropdown4 ? <Text>-</Text> : <Text>+</Text>}
               </View>
             </TouchableOpacity>
 
             {this.state.dropdown4 && (
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 5,
-                  padding: 10,
-                  marginTop: 10
-                }}
-              >
+              <View style={styles.DropdownList}>
                 {ETimeFrames.map(time => {
                   return (
                     <TouchableOpacity
@@ -540,22 +369,8 @@ class CompensationScreen extends React.Component {
                         });
                       }}
                     >
-                      <View
-                        style={{
-                          padding: 10,
-                          backgroundColor: "#f3f3f3",
-                          marginBottom: 10,
-                          borderRadius: 3
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "#222",
-                            fontSize: 16
-                          }}
-                        >
-                          {time}
-                        </Text>
+                      <View style={styles.DropdownItem}>
+                        <Text style={styles.DropdownItemText}>{time}</Text>
                       </View>
                     </TouchableOpacity>
                   );
@@ -574,23 +389,12 @@ class CompensationScreen extends React.Component {
                 disabled={this.state.submitted}
               >
                 <View
-                  style={{
-                    padding: 15,
-                    width: 250,
-                    borderRadius: 5,
-                    backgroundColor: "#62D288",
-                    marginTop: !this.state.dropdown ? 50 : 35,
-                    marginBottom: 100
-                  }}
-                 >
-                  <Text
-                    style={{
-                      color: "white",
-                      textAlign: "center",
-                      fontSize: 20,
-                      fontWeight: "600"
-                    }}
-                  >
+                  style={[
+                    styles.Button,
+                    { marginTop: !this.state.dropdown ? 50 : 35 }
+                  ]}
+                >
+                  <Text style={styles.ButtonText}>
                     {this.state.submitted ? "Laddar..." : "Begär ersättning"}
                   </Text>
                 </View>
@@ -604,7 +408,7 @@ class CompensationScreen extends React.Component {
               !this.state.hasError ? { display: "none", flex: 1 } : { flex: 1 }
             }
           >
-            <Text style={{ fontSize: 16, fontWeight: "600", color: "#912b4a" }}>
+            <Text style={styles.ErrorText}>
               Var vänlig och fyll i formuläret korrekt: {this.state.error}
             </Text>
             <SlForm
@@ -618,5 +422,88 @@ class CompensationScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  ScreenWrapper: {
+    flex: 1,
+    flexDirection: "column",
+    padding: 20
+  },
+  Image: {
+    width: 195,
+    height: 195,
+    alignSelf: "center",
+    marginBottom: 32
+  },
+  Title: {
+    fontSize: 25,
+    fontWeight: "600"
+  },
+  Paragraph: {
+    paddingTop: 10,
+    lineHeight: 20,
+    opacity: 0.85
+  },
+  ChoiceWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20
+  },
+  Choice: {
+    padding: 25,
+    paddingLeft: 30,
+    borderRadius: 5,
+    paddingRight: 30,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  DropdownButton: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 16,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  DropdownList: {
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10
+  },
+  DropdownItem: {
+    padding: 10,
+    backgroundColor: "#f3f3f3",
+    marginBottom: 10,
+    borderRadius: 3
+  },
+  DropdownItemText: {
+    color: "#222",
+    fontSize: 16
+  },
+  Button: {
+    padding: 15,
+    width: 250,
+    borderRadius: 5,
+    backgroundColor: "#62D288",
+
+    marginBottom: 100
+  },
+  ButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "600"
+  },
+  ErrorText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#912b4a"
+  }
+});
 
 export default CompensationScreen;
