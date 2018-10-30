@@ -9,6 +9,7 @@ import {
   ScrollView,
   StyleSheet
 } from "react-native";
+import Button from "../components/Button";
 import KeyboardAvoid from "../components/KeyboardAvoid";
 import { EBankAccounts } from "../utils/enums";
 import Title from "../components/Title";
@@ -120,16 +121,7 @@ class InfoBankScreen extends React.Component {
           />
 
           <View style={styles.ButtonWrapper}>
-            <TouchableOpacity onPress={() => this.navigateAndSave()}>
-              <View
-                style={[
-                  styles.Button,
-                  { marginTop: !this.state.dropdown ? 50 : 35 }
-                ]}
-              >
-                <Text style={styles.ButtonText}>Gå vidare</Text>
-              </View>
-            </TouchableOpacity>
+            <Button onClick={() => this.navigateAndSave()}>Gå vidare</Button>
           </View>
         </ScrollView>
       </KeyboardAvoid>
@@ -192,18 +184,6 @@ const styles = StyleSheet.create({
   },
   ButtonWrapper: {
     alignItems: "center"
-  },
-  Button: {
-    padding: 15,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#D26283"
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "600"
   }
 });
 

@@ -10,6 +10,7 @@ import {
   StyleSheet
 } from "react-native";
 import KeyboardAvoid from "../components/KeyboardAvoid";
+import Button from "../components/Button";
 import Title from "../components/Title";
 
 class InfoContactScreen extends React.Component {
@@ -153,16 +154,7 @@ class InfoContactScreen extends React.Component {
               alignItems: "center"
             }}
           >
-            <TouchableOpacity onPress={() => this.navigateAndSave()}>
-              <View
-                style={[
-                  styles.Button,
-                  { marginTop: !this.state.dropdown ? 50 : 35 }
-                ]}
-              >
-                <Text style={styles.ButtonText}>Gå vidare</Text>
-              </View>
-            </TouchableOpacity>
+            <Button onClick={() => this.navigateAndSave()}>Gå vidare</Button>
           </View>
         </ScrollView>
       </KeyboardAvoid>
@@ -192,19 +184,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center"
-  },
-  Button: {
-    padding: 15,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#D26283",
-    marginBottom: 50
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "600"
   }
 });
 

@@ -9,6 +9,7 @@ import {
   StyleSheet
 } from "react-native";
 import { ETravelTypesLabels, EMetroLines } from "../utils/enums";
+import Button from "../components/Button";
 import Title from "../components/Title";
 import Paragraph from "../components/Paragraph";
 
@@ -158,16 +159,8 @@ class NotificationsScreen extends React.Component {
               <Text style={styles.SmallButtonText}>Rensa</Text>
             </TouchableOpacity>
           )}
-          <TouchableOpacity onPress={() => this.navigateAndSave()}>
-            <View
-              style={[
-                styles.Button,
-                { marginTop: !this.state.dropdown ? 50 : 35 }
-              ]}
-            >
-              <Text style={styles.ButtonText}>Gå vidare</Text>
-            </View>
-          </TouchableOpacity>
+
+          <Button onClick={() => this.navigateAndSave()}>Gå vidare</Button>
         </View>
       </ScrollView>
     );
@@ -249,19 +242,6 @@ const styles = StyleSheet.create({
   SmallButtonText: {
     color: "dodgerblue",
     fontSize: 16
-  },
-  Button: {
-    padding: 15,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#D26283",
-    marginBottom: 100
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "600"
   }
 });
 

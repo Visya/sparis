@@ -9,6 +9,7 @@ import {
   Image,
   StyleSheet
 } from "react-native";
+import Button from "../components/Button";
 import KeyboardAvoid from "../components/KeyboardAvoid";
 import { ECardsLabels } from "../utils/enums";
 import Title from "../components/Title";
@@ -120,16 +121,7 @@ class InfoTicketScreen extends React.Component {
           />
 
           <View style={styles.ButtonWrapper}>
-            <TouchableOpacity onPress={() => this.navigateAndSave()}>
-              <View
-                style={[
-                  styles.Button,
-                  { marginTop: !this.state.dropdown ? 50 : 35 }
-                ]}
-              >
-                <Text style={styles.ButtonText}>Gå vidare</Text>
-              </View>
-            </TouchableOpacity>
+            <Button onClick={() => this.navigateAndSave()}>Gå vidare</Button>
           </View>
         </KeyboardAvoid>
       </ScrollView>
@@ -189,19 +181,6 @@ const styles = StyleSheet.create({
   ButtonWrapper: {
     flex: 2,
     alignItems: "center"
-  },
-  Button: {
-    padding: 15,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#D26283",
-    marginBottom: 100
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "600"
   }
 });
 

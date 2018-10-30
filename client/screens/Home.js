@@ -1,7 +1,8 @@
 import React from "react";
 import Title from "../components/Title";
 import Paragraph from "../components/Paragraph";
-import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import Button from "../components/Button";
+import { Image, View, StyleSheet } from "react-native";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,11 +24,8 @@ class HomeScreen extends React.Component {
           nästa skärm anger du dina personuppgifter som sedan används för att
           fylla i formulären åt dig - smart va?
         </Paragraph>
-        <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
-          <View style={styles.Button}>
-            <Text style={styles.ButtonText}>Nu kör vi!</Text>
-          </View>
-        </TouchableOpacity>
+
+        <Button onClick={() => navigate("InfoTicket", {})}>Nu kör vi!</Button>
       </View>
     );
   }

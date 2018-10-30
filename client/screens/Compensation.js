@@ -14,6 +14,7 @@ import SlForm from "../components/SlForm";
 import HeaderLeft from "../components/HeaderLeft";
 import HeaderRight from "../components/HeaderRight";
 
+import Button from "../components/Button";
 import Title from "../components/Title";
 import Paragraph from "../components/Paragraph";
 
@@ -387,21 +388,13 @@ class CompensationScreen extends React.Component {
                 alignItems: "center"
               }}
             >
-              <TouchableOpacity
-                onPress={() => this.handleSubmit()}
+              <Button
+                submit
                 disabled={this.state.submitted}
+                onClick={() => this.handleSubmit()}
               >
-                <View
-                  style={[
-                    styles.Button,
-                    { marginTop: !this.state.dropdown ? 50 : 35 }
-                  ]}
-                >
-                  <Text style={styles.ButtonText}>
-                    {this.state.submitted ? "Laddar..." : "Begär ersättning"}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                {this.state.submitted ? "Laddar..." : "Begär ersättning"}
+              </Button>
             </View>
           </ScrollView>
         )}
@@ -479,20 +472,7 @@ const styles = StyleSheet.create({
     color: "#222",
     fontSize: 16
   },
-  Button: {
-    padding: 15,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#62D288",
 
-    marginBottom: 100
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "600"
-  },
   ErrorText: {
     fontSize: 16,
     fontWeight: "600",
