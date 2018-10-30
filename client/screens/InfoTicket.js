@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import KeyboardAvoid from "../components/KeyboardAvoid";
 import { ECardsLabels } from "../utils/enums";
+import Title from "../components/Title";
+import Paragraph from "../components/Paragraph";
 
 class InfoTicketScreen extends React.Component {
   constructor() {
@@ -62,13 +64,13 @@ class InfoTicketScreen extends React.Component {
             style={styles.Image}
             source={require("../assets/img/ticket.png")}
           />
-          <Text style={styles.Title}>Dina uppgifter - biljett</Text>
-          <Text style={styles.Paragraph}>
+          <Title>Dina uppgifter - biljett</Title>
+          <Paragraph>
             Här fyller du i dina uppgifter som vi använder för att fylla i
             formuläret åt dig. Dina uppgifter lagras på din mobiltelefon och
             skickas endast till SL i samband med att du ansöker om
             resersättning.
-          </Text>
+          </Paragraph>
 
           <TouchableOpacity
             onPress={() =>
@@ -141,17 +143,11 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "white"
   },
-  Title: { fontSize: 25, fontWeight: "600" },
   Image: {
     width: 195,
     height: 195,
     alignSelf: "center",
     marginBottom: 32
-  },
-  Paragraph: {
-    paddingTop: 10,
-    lineHeight: 20,
-    opacity: 0.85
   },
   DropdownButton: {
     marginTop: 20,

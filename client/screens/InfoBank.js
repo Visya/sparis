@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import KeyboardAvoid from "../components/KeyboardAvoid";
 import { EBankAccounts } from "../utils/enums";
+import Title from "../components/Title";
 
 class InfoBankScreen extends React.Component {
   constructor() {
@@ -63,7 +64,7 @@ class InfoBankScreen extends React.Component {
             style={styles.Image}
             source={require("../assets/img/bankaccount.png")}
           />
-          <Text style={styles.Title}>Dina uppgifter - bankkonto</Text>
+          <Title>Dina uppgifter - bankkonto</Title>
 
           <TouchableOpacity
             onPress={() =>
@@ -151,10 +152,6 @@ const styles = StyleSheet.create({
     height: 195,
     alignSelf: "center",
     marginBottom: 32
-  },
-  Title: {
-    fontSize: 25,
-    fontWeight: "600"
   },
   DropdownButton: {
     marginTop: 20,

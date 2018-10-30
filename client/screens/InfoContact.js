@@ -10,6 +10,7 @@ import {
   StyleSheet
 } from "react-native";
 import KeyboardAvoid from "../components/KeyboardAvoid";
+import Title from "../components/Title";
 
 class InfoContactScreen extends React.Component {
   constructor() {
@@ -64,7 +65,7 @@ class InfoContactScreen extends React.Component {
             style={styles.Image}
             source={require("../assets/img/contactinfo.png")}
           />
-          <Text style={styles.Title}>Dina kontaktuppgifter</Text>
+          <Title>Dina kontaktuppgifter</Title>
 
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
@@ -181,10 +182,6 @@ const styles = StyleSheet.create({
     height: 195,
     alignSelf: "center",
     marginBottom: 32
-  },
-  Title: {
-    fontSize: 25,
-    fontWeight: "600"
   },
   InputField: {
     marginTop: 20,

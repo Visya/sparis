@@ -14,6 +14,9 @@ import SlForm from "../components/SlForm";
 import HeaderLeft from "../components/HeaderLeft";
 import HeaderRight from "../components/HeaderRight";
 
+import Title from "../components/Title";
+import Paragraph from "../components/Paragraph";
+
 import BusLines from "../utils/static/transportType/bus.json";
 import TramLines from "../utils/static/transportType/tram.json";
 import MetroLines from "../utils/static/transportType/metro.json";
@@ -124,10 +127,10 @@ class CompensationScreen extends React.Component {
               style={styles.Image}
               source={require("../assets/img/money.png")}
             />
-            <Text style={styles.Title}>Be om Förseningsersättning</Text>
-            <Text style={styles.Paragraph}>
+            <Title>Be om Förseningsersättning</Title>
+            <Paragraph>
               Fyll i informationen nedan för att be om förseningsersättning.
-            </Text>
+            </Paragraph>
 
             <View style={styles.ChoiceWrapper}>
               {ETravelTypesLabels.map(type => {
@@ -434,15 +437,6 @@ const styles = StyleSheet.create({
     height: 195,
     alignSelf: "center",
     marginBottom: 32
-  },
-  Title: {
-    fontSize: 25,
-    fontWeight: "600"
-  },
-  Paragraph: {
-    paddingTop: 10,
-    lineHeight: 20,
-    opacity: 0.85
   },
   ChoiceWrapper: {
     flexDirection: "row",

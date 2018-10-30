@@ -1,4 +1,6 @@
 import React from "react";
+import Title from "../components/Title";
+import Paragraph from "../components/Paragraph";
 import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 class HomeScreen extends React.Component {
@@ -14,13 +16,13 @@ class HomeScreen extends React.Component {
           style={styles.Image}
           source={require("../assets/img/home.jpg")}
         />
-        <Text style={styles.Title}>Välkommen till Spåris</Text>
-        <Text style={styles.Paragraph}>
+        <Title center>Välkommen till Spåris</Title>
+        <Paragraph center>
           Med denna app kan du snabbt och enkelt be om förseningsersättning för
           förseningar i SL:s lokaltrafik utan att fylla i krångliga formulär. På
           nästa skärm anger du dina personuppgifter som sedan används för att
           fylla i formulären åt dig - smart va?
-        </Text>
+        </Paragraph>
         <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
           <View style={styles.Button}>
             <Text style={styles.ButtonText}>Nu kör vi!</Text>
@@ -42,10 +44,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white"
-  },
-  Title: {
-    fontSize: 30,
-    fontWeight: "600"
   },
   Paragraph: {
     textAlign: "center",

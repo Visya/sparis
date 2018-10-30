@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import Title from "../components/Title";
+import Paragraph from "../components/Paragraph";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -10,23 +12,23 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.ScreenWrapper}>
-        <Text style={styles.Focus}>Spåris appen</Text>
-        <Text>
+        <Title>Spåris appen</Title>
+        <Paragraph>
           Spåris appen hjälper dig att på ett smidigare sätt söka
           förseninsersättning hos SL. Spåris ägs och underhålls av Team
           Undefined.
-        </Text>
+        </Paragraph>
         <Text style={styles.Focus}>Mer information på sl.se</Text>
-        <Text>
+        <Paragraph>
           Du hittar mer information om föreseningsersättning på
           https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning/
-        </Text>
+        </Paragraph>
         <Text style={styles.Focus}>Techinfo</Text>
-        <Text>
+        <Paragraph>
           Din personliga information sparas lokalt på din telefon. Ingen annan
           data sparas av Spåris. Erätssningsinformation skickas endast till
           sl.se.
-        </Text>
+        </Paragraph>
       </View>
     );
   }

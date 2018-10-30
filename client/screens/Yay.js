@@ -1,5 +1,7 @@
 import React from "react";
 import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import Title from "../components/Title";
+import Paragraph from "../components/Paragraph";
 
 class Yay extends React.Component {
   static navigationOptions = {
@@ -11,11 +13,11 @@ class Yay extends React.Component {
     return (
       <View style={styles.ScreenWrapper}>
         <Image source={require("../assets/img/yay.png")} />
-        <Text style={styles.Title}>YAY! Du gjorde det</Text>
-        <Text style={styles.Paragraph}>
+        <Title center>YAY! Du gjorde det</Title>
+        <Paragraph center>
           Din förfrågan om förseningsersättning är skickad till SL. // Team
           Undefined
-        </Text>
+        </Paragraph>
         <TouchableOpacity onPress={() => navigate("InfoTicket", {})}>
           <View style={styles.Button}>
             <Text style={styles.ButtonText}>En till, en till!</Text>
@@ -33,19 +35,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white"
-  },
-  Title: {
-    fontSize: 30,
-    fontWeight: "600",
-    marginTop: 20
-  },
-  Paragraph: {
-    textAlign: "center",
-    padding: 20,
-    paddingLeft: 70,
-    paddingRight: 70,
-    lineHeight: 20,
-    opacity: 0.85
   },
   Button: {
     padding: 18,

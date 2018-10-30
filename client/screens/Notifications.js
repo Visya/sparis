@@ -9,6 +9,8 @@ import {
   StyleSheet
 } from "react-native";
 import { ETravelTypesLabels, EMetroLines } from "../utils/enums";
+import Title from "../components/Title";
+import Paragraph from "../components/Paragraph";
 
 class NotificationsScreen extends React.Component {
   constructor() {
@@ -54,11 +56,11 @@ class NotificationsScreen extends React.Component {
           style={styles.Image}
           source={require("../assets/img/notifications.png")}
         />
-        <Text style={styles.Title}>Notifikationer</Text>
-        <Text style={styles.Paragraph}>
+        <Title>Notifikationer</Title>
+        <Paragraph>
           Genom att fylla i ditt vanligaste resesätt kan vi skicka dig en
           notifiering om det sker en försening.
-        </Text>
+        </Paragraph>
         <View style={styles.ChoiceWrapper}>
           {ETravelTypesLabels.map(method => {
             return (
@@ -179,20 +181,11 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "white"
   },
-  Title: {
-    fontSize: 25,
-    fontWeight: "600"
-  },
   Image: {
     width: 195,
     height: 195,
     alignSelf: "center",
     marginBottom: 32
-  },
-  Paragraph: {
-    paddingTop: 10,
-    lineHeight: 20,
-    opacity: 0.85
   },
   ChoiceWrapper: {
     flexDirection: "row",
