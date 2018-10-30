@@ -1,5 +1,11 @@
 import React from "react";
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Text,
+  Dimensions
+} from "react-native";
 
 const Button = props => {
   const { onClick, submit, disabled, children } = props;
@@ -26,16 +32,17 @@ const Button = props => {
 
 const styles = StyleSheet.create({
   Button: {
-    padding: 18,
-    width: 250,
-    borderRadius: 5,
+    padding: 15,
+    borderRadius: 3,
+    marginBottom: 50,
     backgroundColor: "#D26283",
-    marginTop: 30
+    marginTop: 30,
+    width: Dimensions.get("window").width - 40
   },
   ButtonText: {
     color: "white",
     textAlign: "center",
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "600"
   }
 });

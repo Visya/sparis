@@ -74,9 +74,9 @@ class NotificationsScreen extends React.Component {
                     styles.Choice,
                     {
                       borderColor:
-                        this.state.method === method ? "#D26283" : "lightgrey",
+                        this.state.method === method ? "#222222" : "lightgrey",
                       backgroundColor:
-                        this.state.method === method ? "#D26283" : "white"
+                        this.state.method === method ? "#222222" : "white"
                     }
                   ]}
                 >

@@ -145,9 +145,9 @@ class CompensationScreen extends React.Component {
                         styles.Choice,
                         {
                           borderColor:
-                            this.state.type === type ? "#D26283" : "lightgrey",
+                            this.state.type === type ? "#222222" : "lightgrey",
                           backgroundColor:
-                            this.state.type === type ? "#D26283" : "white"
+                            this.state.type === type ? "#222222" : "white"
                         }
                       ]}
                     >

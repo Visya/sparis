@@ -50,19 +50,6 @@ const styles = StyleSheet.create({
     paddingRight: 40,
     lineHeight: 20,
     opacity: 0.85
-  },
-  Button: {
-    padding: 18,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#D26283",
-    marginTop: 30
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 25,
-    fontWeight: "600"
   }
 });
 

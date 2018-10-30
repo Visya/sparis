@@ -28,7 +28,8 @@ class InfoTicketScreen extends React.Component {
     const { navigate } = navigation;
     return {
       title: "",
-      headerLeft: null
+      headerLeft: null,
+      backgroundColor: "#D26283"
     };
   };
 

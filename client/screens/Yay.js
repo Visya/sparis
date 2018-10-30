@@ -35,19 +35,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white"
-  },
-  Button: {
-    padding: 18,
-    width: 250,
-    borderRadius: 5,
-    backgroundColor: "#D26283",
-    marginTop: 30
-  },
-  ButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 25,
-    fontWeight: "600"
   }
 });
 
