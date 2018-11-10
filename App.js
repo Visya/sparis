@@ -1,12 +1,12 @@
-import { createStackNavigator } from "react-navigation";
-import HomeScreen from "./screens/Home";
-import NotificationsScreen from "./screens/Notifications";
-import InfoTicketScreen from "./screens/InfoTicket";
-import About from "./screens/About";
-import InfoBankScreen from "./screens/InfoBank";
-import InfoContactScreen from "./screens/InfoContact";
-import CompensationScreen from "./screens/Compensation";
-import Yay from "./screens/Yay";
+import { createStackNavigator } from 'react-navigation'
+import HomeScreen from './screens/Home'
+import NotificationsScreen from './screens/Notifications'
+import InfoTicketScreen from './screens/InfoTicket'
+import About from './screens/About'
+import InfoBankScreen from './screens/InfoBank'
+import InfoContactScreen from './screens/InfoContact'
+import CompensationScreen from './screens/Compensation'
+import Yay from './screens/Yay'
 
 const App = createStackNavigator(
   {
@@ -22,16 +22,16 @@ const App = createStackNavigator(
   {
     navigationOptions: {
       headerStyle: {
-        backgroundColor: "#D26283"
+        backgroundColor: '#D26283'
       },
       headerTitleStyle: {
-        fontWeight: "bold",
-        color: "#fff"
+        fontWeight: 'bold',
+        color: '#fff'
       },
-      headerTintColor: "#fff",
-      headerBackTitle: "Bakåt"
+      headerTintColor: '#fff',
+      headerBackTitle: 'Bakåt'
     }
   }
-);
+)
 
-export default App;
+export default App

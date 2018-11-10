@@ -1,25 +1,25 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 export default (HeaderLeft = props => {
   return (
-    <TouchableOpacity onPress={() => props.navigate("Home", {})}>
+    <TouchableOpacity onPress={() => props.navigate('Home', {})}>
       <View
         style={{
           paddingLeft: 16,
-          alignItems: "center"
+          alignItems: 'center'
         }}
       >
         <Text
           style={{
-            color: "#fff",
+            color: '#fff',
             fontSize: 18,
-            fontWeight: "600"
+            fontWeight: '600'
           }}
         >
           Spåris
         </Text>
       </View>
     </TouchableOpacity>
-  );
-});
+  )
+})

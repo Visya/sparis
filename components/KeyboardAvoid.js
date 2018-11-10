@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import React, { Component } from 'react'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 
 class KeyboardAvoid extends Component {
-  render() {
-    const { ...rest } = this.props;
+  render () {
+    const { ...rest } = this.props
 
     return (
       <KeyboardAvoidingView
-        behavior="position"
+        behavior='position'
         keyboardVerticalOffset={0}
         {...rest}
       >
         {this.props.children}
       </KeyboardAvoidingView>
-    );
+    )
   }
 }
 
-export default KeyboardAvoid;
+export default KeyboardAvoid

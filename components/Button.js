@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react'
 import {
   TouchableOpacity,
   View,
   StyleSheet,
   Text,
   Dimensions
-} from "react-native";
+} from 'react-native'
 
 const Button = props => {
-  const { onClick, submit, disabled, children } = props;
+  const { onClick, submit, disabled, children } = props
 
   return disabled ? (
     <TouchableOpacity>
       <View
         style={[
           styles.Button,
-          submit && { backgroundColor: "#62D288", opacity: 0.5 }
+          submit && { backgroundColor: '#62D288', opacity: 0.5 }
         ]}
       >
         <Text style={styles.ButtonText}>{children}</Text>
@@ -23,28 +23,28 @@ const Button = props => {
     </TouchableOpacity>
   ) : (
     <TouchableOpacity onPress={() => onClick()}>
-      <View style={[styles.Button, submit && { backgroundColor: "#62D288" }]}>
+      <View style={[styles.Button, submit && { backgroundColor: '#62D288' }]}>
         <Text style={styles.ButtonText}>{children}</Text>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   Button: {
     padding: 15,
     borderRadius: 3,
     marginBottom: 50,
-    backgroundColor: "#D26283",
+    backgroundColor: '#D26283',
     marginTop: 30,
-    width: Dimensions.get("window").width - 40
+    width: Dimensions.get('window').width - 40
   },
   ButtonText: {
-    color: "white",
-    textAlign: "center",
+    color: 'white',
+    textAlign: 'center',
     fontSize: 22,
-    fontWeight: "600"
+    fontWeight: '600'
   }
-});
+})
 
-export default Button;
+export default Button

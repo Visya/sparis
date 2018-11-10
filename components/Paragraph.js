@@ -1,14 +1,14 @@
-import React from "react";
-import { Text, StyleSheet } from "react-native";
+import React from 'react'
+import { Text, StyleSheet } from 'react-native'
 
 const Paragraph = props => {
-  const { children, center } = props;
+  const { children, center } = props
   return (
-    <Text style={[styles.Paragraph, center && { textAlign: "center" }]}>
+    <Text style={[styles.Paragraph, center && { textAlign: 'center' }]}>
       {children}
     </Text>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   Paragraph: {
@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     opacity: 0.85
   }
-});
+})
 
-export default Paragraph;
+export default Paragraph
