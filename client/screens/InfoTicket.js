@@ -24,6 +24,10 @@ class InfoTicketScreen extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getStorageData();
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { navigate } = navigation;
     return {
@@ -54,6 +58,27 @@ class InfoTicketScreen extends React.Component {
 
     saveTicketData();
     navigate("InfoBank", {});
+  }
+
+  async getStorageData() {
+    const getTicketData = async () => {
+      let ticketData = "";
+      try {
+        ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(ticketData);
+    };
+
+    const ticketData = await getTicketData();
+    const { ticketType, cardNumber } = ticketData;
+
+    this.setState({
+      ticketType: ticketType ? ticketType : "",
+      cardNumber: cardNumber ? cardNumber : ""
+    });
   }
 
   render() {

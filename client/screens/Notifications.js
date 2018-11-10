@@ -17,11 +17,15 @@ class NotificationsScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      value: "",
       method: "",
       selectedLines: []
     };
   }
+
+  componentDidMount() {
+    this.getStorageData();
+  }
+
   static navigationOptions = {
     title: "",
     headerLeft: null
@@ -48,6 +52,28 @@ class NotificationsScreen extends React.Component {
 
     saveNotificationData();
     navigate("Compensation", {});
+  }
+
+  async getStorageData() {
+    const getNotificationData = async () => {
+      let notificationData = "";
+      try {
+        notificationData =
+          (await AsyncStorage.getItem("notificationData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(notificationData);
+    };
+
+    const notificationData = await getNotificationData();
+    const { method, branches } = notificationData;
+
+    this.setState({
+      method: method ? method : "",
+      selectedLines: branches ? branches : []
+    });
   }
 
   render() {

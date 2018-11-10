@@ -24,6 +24,10 @@ class InfoBankScreen extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getStorageData();
+  }
+
   static navigationOptions = {
     title: "Spåris",
     headerTintColor: "white",
@@ -55,6 +59,28 @@ class InfoBankScreen extends React.Component {
 
     saveBankData();
     navigate("InfoContact", {});
+  }
+
+  async getStorageData() {
+    const getBankData = async () => {
+      let bankData = "";
+      try {
+        bankData = (await AsyncStorage.getItem("bankData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(bankData);
+    };
+
+    const bankData = await getBankData();
+    const { type, clearingNumber, account } = bankData;
+
+    this.setState({
+      type: type ? type : "",
+      clearingNumber: clearingNumber ? clearingNumber : "",
+      account: account ? account : ""
+    });
   }
 
   render() {
