@@ -125,14 +125,7 @@ class NotificationsScreen extends React.Component {
             }
           >
             <View style={styles.DropdownButton}>
-              {/* {this.state.selectedLines &&
-              this.state.selectedLines.length > 0 ? (
-                this.state.selectedLines.map(branch => {
-                  <Text>{branch}</Text>;
-                })
-              ) : ( */}
               <Text>Välj ett alternativ</Text>
-              {/* )} */}
               {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
             </View>
           </TouchableOpacity>
