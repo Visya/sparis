@@ -1,4 +1,5 @@
 import { createStackNavigator } from "react-navigation";
+import { AsyncStorage } from "react-native";
 import HomeScreen from "./screens/Home";
 import NotificationsScreen from "./screens/Notifications";
 import InfoTicketScreen from "./screens/InfoTicket";

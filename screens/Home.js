@@ -2,15 +2,121 @@ import React from "react";
 import Title from "../components/Title";
 import Paragraph from "../components/Paragraph";
 import Button from "../components/Button";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet, AsyncStorage } from "react-native";
 
 class HomeScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: {},
+      dataLoaded: false
+    };
+  }
+
+  componentDidMount() {
+    this.getStorageData();
+  }
+
   static navigationOptions = {
     header: null
   };
 
+  async getStorageData() {
+    const getTicketData = async () => {
+      let ticketData = "";
+      try {
+        ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(ticketData);
+    };
+
+    const getBankData = async () => {
+      let bankData = "";
+      try {
+        bankData = (await AsyncStorage.getItem("bankData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(bankData);
+    };
+
+    const getContactData = async () => {
+      let contactData = "";
+      try {
+        contactData = (await AsyncStorage.getItem("contactData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(contactData);
+    };
+
+    const storageData = {
+      slCard: await getTicketData(),
+      bankAccount: await getBankData(),
+      contactInfo: await getContactData()
+    };
+
+    this.setState({
+      data: storageData,
+      dataLoaded: true,
+      submitted: true,
+      hasError: false
+    });
+  }
+
+  validateData() {
+    const { data } = this.state;
+
+    const { slCard, bankAccount, contactInfo } = data;
+
+    const { cardNumber, ticketType } = slCard;
+    const { type, clearingNumber, account } = bankAccount;
+    const {
+      address,
+      city,
+      co,
+      country,
+      email,
+      id,
+      phone,
+      firstname,
+      surname,
+      zip
+    } = contactInfo;
+
+    if (
+      cardNumber !== "" &&
+      ticketType !== "" &&
+      type !== "" &&
+      clearingNumber !== "" &&
+      account !== "" &&
+      address !== "" &&
+      city !== "" &&
+      co !== "" &&
+      country !== "" &&
+      email !== "" &&
+      id !== "" &&
+      phone !== "" &&
+      firstname !== "" &&
+      surname !== "" &&
+      zip !== ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
+    const { dataLoaded, data } = this.state;
+
     const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.ScreenWrapper}>
         <Image
@@ -25,7 +131,15 @@ class HomeScreen extends React.Component {
           fylla i formulären åt dig - smart va?
         </Paragraph>
 
-        <Button onClick={() => navigate("InfoTicket", {})}>Nu kör vi!</Button>
+        {dataLoaded && (
+          <Button
+            onClick={() =>
+              navigate(this.validateData() ? "Compensation" : "InfoTicket", {})
+            }
+          >
+            Nu kör vi!
+          </Button>
+        )}
       </View>
     );
   }
