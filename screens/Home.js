@@ -22,50 +22,28 @@ class HomeScreen extends React.Component {
   };
 
   async getStorageData() {
-    const getTicketData = async () => {
-      let ticketData = "";
+    const getData = async () => {
+      let data = {};
       try {
-        ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+        const ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+        const bankData = (await AsyncStorage.getItem("bankData")) || "none";
+        const contactData =
+          (await AsyncStorage.getItem("contactData")) || "none";
+
+        data = {
+          slCard: JSON.parse(ticketData),
+          bankAccount: JSON.parse(bankData),
+          contactInfo: JSON.parse(contactData)
+        };
       } catch (error) {
-        // Error retrieving data
         console.log(error.message);
       }
-      return JSON.parse(ticketData);
-    };
-
-    const getBankData = async () => {
-      let bankData = "";
-      try {
-        bankData = (await AsyncStorage.getItem("bankData")) || "none";
-      } catch (error) {
-        // Error retrieving data
-        console.log(error.message);
-      }
-      return JSON.parse(bankData);
-    };
-
-    const getContactData = async () => {
-      let contactData = "";
-      try {
-        contactData = (await AsyncStorage.getItem("contactData")) || "none";
-      } catch (error) {
-        // Error retrieving data
-        console.log(error.message);
-      }
-      return JSON.parse(contactData);
-    };
-
-    const storageData = {
-      slCard: await getTicketData(),
-      bankAccount: await getBankData(),
-      contactInfo: await getContactData()
+      return data;
     };
 
     this.setState({
-      data: storageData,
-      dataLoaded: true,
-      submitted: true,
-      hasError: false
+      data: await getData(),
+      dataLoaded: true
     });
   }
 
