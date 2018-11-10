@@ -1,40 +1,40 @@
-import React, { Component } from "react";
-import { WebView } from "react-native";
+import React, { Component } from 'react'
+import { WebView } from 'react-native'
 
-import { createScript, testData } from "./create-script";
+import { createScript, testData } from './create-script'
 
 class SlForm extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
 
-    this.handleFormResult = this.handleFormResult.bind(this);
+    this.handleFormResult = this.handleFormResult.bind(this)
   }
 
-  handleFormResult({ nativeEvent: { data: message } = {} } = {}) {
+  handleFormResult ({ nativeEvent: { data: message } = {} } = {}) {
     if (message === 'OK') {
-      this.props.handleSuccess();
+      this.props.handleSuccess()
     } else {
-      this.props.handleError(message);
+      this.props.handleError(message)
     }
   }
 
-  render() {
-    const { data = testData } = this.props;
+  render () {
+    const { data = testData } = this.props
 
     return (
       <WebView
-        useWebKit={true}
+        useWebKit
         source={{
           uri:
-            "https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning"
+            'https://sl.se/sv/info/kundservice/resegarantin/forseningsersattning'
         }}
         style={{ marginTop: 20 }}
         injectedJavaScript={createScript(data)}
         onMessage={this.handleFormResult}
-        javaScriptEnabled={true}
+        javaScriptEnabled
       />
-    );
+    )
   }
 }
 
-export default SlForm;
+export default SlForm

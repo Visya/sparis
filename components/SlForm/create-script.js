@@ -1,15 +1,15 @@
-import get from 'lodash.get';
-import reduce from 'lodash.reduce';
+import get from 'lodash.get'
+import reduce from 'lodash.reduce'
 
 const staticFields = {
   '[name="data.issue.ext.compensation_type"]': () => 'Prisavdrag',
   '[name="data.issue.date"]': () => 'Idag',
   '[name="data.issue.time"]': () => {
-    var d = new Date();
-    var h = (d.getHours() < 10 ? '0' : '') + d.getHours();
-    var m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+    var d = new Date()
+    var h = (d.getHours() < 10 ? '0' : '') + d.getHours()
+    var m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes()
 
-    return h + ':' + m;
+    return h + ':' + m
   },
   '[name="data.issue.travel.type"]': 'delayInfo.type',
   '[name="data.issue.travel.destination"]': 'delayInfo.to',
@@ -27,20 +27,20 @@ const staticFields = {
   '[name="data.issue.contact.address.country"]': 'contactInfo.country',
   '[name="data.issue.contact.email"]': 'contactInfo.email',
   '[name="data.issue.contact.phone"]': 'contactInfo.phone'
-};
+}
 
 const dynamicFields = {
   '[name="data.issue.compensation.type.priceDeduction.delay"]': 'delayInfo.time',
   '#price_deduction_ticket_type': 'slCard.ticketType',
   '[name="data.traffic_line_range"]': ({ delayInfo: { type, line: { Number: line } } = {} } = {}) => {
-    if (type !== 'Buss') return null;
+    if (type !== 'Buss') return null
 
-    if (line <= 293) return '1-293';
-    if (line <= 532) return '301-532';
-    if (line <= 648) return '533-648';
-    if (line <= 795) return '649-795';
+    if (line <= 293) return '1-293'
+    if (line <= 532) return '301-532'
+    if (line <= 648) return '533-648'
+    if (line <= 795) return '649-795'
 
-    return '796-986';
+    return '796-986'
   },
   '#traffic_line': 'delayInfo.line.Number',
   '[data-ng-model="data.special.travel.from"]': 'delayInfo.from',
@@ -50,9 +50,8 @@ const dynamicFields = {
   '[name="travel_card.serial_number1"]': (data = {}) => data.slCard.cardNumber.substring(0, 5),
   '[name="travel_card.serial_number2"]': (data = {}) => data.slCard.cardNumber.substring(5),
   '[name="data.issue.compensation.refound.bank.clearing"]': 'bankAccount.clearingNumber',
-  '[name="data.issue.compensation.refound.bank.account"]': 'bankAccount.account',
-};
-
+  '[name="data.issue.compensation.refound.bank.account"]': 'bankAccount.account'
+}
 
 export const testData = {
   slCard: { ticketType: 'Årsbiljett, vuxen', cardNumber: '1234554321' },
@@ -76,7 +75,7 @@ export const testData = {
     to: 'Brostugan',
     time: '20-39 minuter'
   }
-};
+}
 
 const helperFunctions = `
 function waitForElToExist(selector, handler, maxDelay) {
@@ -130,37 +129,37 @@ function findValue(selector, value) {
   
   return value;
 }
-`;
+`
 
-export function convertDataToInstructions(data) {
+export function convertDataToInstructions (data) {
   const staticFieldsScript = reduce(staticFields, (result, valueGetter, selector) => {
-    const value = typeof valueGetter === 'function' ? valueGetter(data) : get(data, valueGetter);
+    const value = typeof valueGetter === 'function' ? valueGetter(data) : get(data, valueGetter)
 
     if (value === null) {
-      return result;
+      return result
     }
 
-    return `${result}$('${selector}').val(findValue('${selector}', '${value}')).change();\n`;
-  }, '');
+    return `${result}$('${selector}').val(findValue('${selector}', '${value}')).change();\n`
+  }, '')
 
   const dynamicFieldsScript = reduce(dynamicFields, (result, valueGetter, selector) => {
-    const value = typeof valueGetter === 'function' ? valueGetter(data) : get(data, valueGetter);
+    const value = typeof valueGetter === 'function' ? valueGetter(data) : get(data, valueGetter)
 
     if (value === null) {
-      return result;
+      return result
     }
 
     return `${result}
       waitForElToExist('${selector}', function(el) {
         el.val(findValue('${selector}', '${value}')).change();
       });
-    `;
-  }, '');
+    `
+  }, '')
 
-  return `${staticFieldsScript}\n${dynamicFieldsScript}`;
+  return `${staticFieldsScript}\n${dynamicFieldsScript}`
 }
 
-export function createScript(data) {
+export function createScript (data) {
   return `
     (function() {
     /* onMessage patch */
@@ -183,5 +182,5 @@ export function createScript(data) {
     }, 10000);
     
     })();
-  `;
+  `
 }
