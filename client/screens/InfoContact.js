@@ -19,6 +19,10 @@ class InfoContactScreen extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.getStorageData();
+  }
+
   static navigationOptions = {
     title: "Spåris",
     headerTintColor: "white",
@@ -56,6 +60,46 @@ class InfoContactScreen extends React.Component {
 
     saveContactData();
     navigate("Notifications", {});
+  }
+
+  async getStorageData() {
+    const getContactData = async () => {
+      let contactData = "";
+      try {
+        contactData = (await AsyncStorage.getItem("contactData")) || "none";
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+      return JSON.parse(contactData);
+    };
+
+    const contactData = await getContactData();
+    const {
+      address,
+      city,
+      co,
+      country,
+      email,
+      id,
+      phone,
+      surname,
+      firstname,
+      zip
+    } = contactData;
+
+    this.setState({
+      adress: address ? address : "",
+      city: city ? city : "",
+      co: co ? co : "",
+      country: country ? country : "",
+      email: email ? email : "",
+      id: id ? id : "",
+      phone: phone ? phone : "",
+      firstname: firstname ? firstname : "",
+      surname: surname ? surname : "",
+      zip: zip ? zip : ""
+    });
   }
 
   render() {
