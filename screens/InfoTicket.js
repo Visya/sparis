@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   View,
   ScrollView,
@@ -8,88 +8,84 @@ import {
   AsyncStorage,
   Image,
   StyleSheet
-} from "react-native";
-import Button from "../components/Button";
-import KeyboardAvoid from "../components/KeyboardAvoid";
-import { ECardsLabels } from "../utils/enums";
-import Title from "../components/Title";
-import Paragraph from "../components/Paragraph";
+} from 'react-native'
+import Button from '../components/Button'
+import KeyboardAvoid from '../components/KeyboardAvoid'
+import { ECardsLabels } from '../utils/enums'
+import Title from '../components/Title'
+import Paragraph from '../components/Paragraph'
 
 class InfoTicketScreen extends React.Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
-      cardNumber: "",
-      ticketType: ""
-    };
+      cardNumber: '',
+      ticketType: ''
+    }
   }
 
-  componentDidMount() {
-    this.getStorageData();
+  componentDidMount () {
+    this.getStorageData()
   }
 
   static navigationOptions = ({ navigation }) => {
-    const { navigate } = navigation;
     return {
-      title: "",
+      title: '',
       headerLeft: null,
-      backgroundColor: "#D26283"
-    };
-  };
+      backgroundColor: '#D26283'
+    }
+  }
 
-  navigateAndSave() {
-    const { navigate } = this.props.navigation;
-    const { cardNumber } = this.state;
+  navigateAndSave () {
+    const { navigate } = this.props.navigation
 
     const saveTicketData = async cardNumber => {
       try {
         await AsyncStorage.setItem(
-          "ticketData",
+          'ticketData',
           JSON.stringify({
             cardNumber: this.state.cardNumber,
             ticketType: this.state.ticketType
           })
-        );
+        )
       } catch (error) {
         // Error retrieving data
-        console.log(error.message);
+        console.log(error.message)
       }
-    };
+    }
 
-    saveTicketData();
-    navigate("InfoBank", {});
+    saveTicketData()
+    navigate('InfoBank', {})
   }
 
-  async getStorageData() {
+  async getStorageData () {
     const getTicketData = async () => {
-      let ticketData = "";
+      let ticketData = ''
       try {
-        ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+        ticketData = (await AsyncStorage.getItem('ticketData')) || 'none'
       } catch (error) {
         // Error retrieving data
-        console.log(error.message);
+        console.log(error.message)
       }
-      return JSON.parse(ticketData);
-    };
+      return JSON.parse(ticketData)
+    }
 
-    const ticketData = await getTicketData();
-    const { ticketType, cardNumber } = ticketData;
+    const ticketData = await getTicketData()
+    const { ticketType, cardNumber } = ticketData
 
     this.setState({
-      ticketType: ticketType ? ticketType : "",
-      cardNumber: cardNumber ? cardNumber : ""
-    });
+      ticketType: ticketType || '',
+      cardNumber: cardNumber || ''
+    })
   }
 
-  render() {
-    const { navigate } = this.props.navigation;
-
+  render () {
     return (
       <ScrollView>
         <KeyboardAvoid style={styles.ScreenWrapper}>
           <Image
             style={styles.Image}
-            source={require("../assets/img/ticket.png")}
+            source={require('../assets/img/ticket.png')}
           />
           <Title>Dina uppgifter - biljett</Title>
           <Paragraph>
@@ -101,14 +97,14 @@ class InfoTicketScreen extends React.Component {
 
           <TouchableOpacity
             onPress={() =>
-              this.setState({ dropdown: this.state.dropdown ? false : true })
+              this.setState({ dropdown: !this.state.dropdown })
             }
           >
             <View style={styles.DropdownButton}>
               <Text>
                 {this.state.ticketType
                   ? this.state.ticketType
-                  : "Välj en korttyp"}
+                  : 'Välj en korttyp'}
               </Text>
               {this.state.dropdown ? <Text>-</Text> : <Text>+</Text>}
             </View>
@@ -124,7 +120,7 @@ class InfoTicketScreen extends React.Component {
                       this.setState({
                         ticketType: card,
                         dropdown: false
-                      });
+                      })
                     }}
                   >
                     <View style={styles.DropdownItem}>
@@ -133,15 +129,15 @@ class InfoTicketScreen extends React.Component {
                       </Text>
                     </View>
                   </TouchableOpacity>
-                );
+                )
               })}
             </View>
           )}
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Kortnummer"
+            placeholder='Kortnummer'
             onChangeText={text => this.setState({ cardNumber: text })}
             value={this.state.cardNumber}
           />
@@ -151,63 +147,63 @@ class InfoTicketScreen extends React.Component {
           </View>
         </KeyboardAvoid>
       </ScrollView>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   ScreenWrapper: {
-    flexDirection: "column",
+    flexDirection: 'column',
     padding: 20,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   Image: {
     width: 195,
     height: 195,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 32
   },
   DropdownButton: {
     marginTop: 20,
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 16,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center"
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   DropdownList: {
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 10,
     marginTop: 10
   },
   DropdownItem: {
     padding: 10,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: '#f3f3f3',
     marginBottom: 10,
     borderRadius: 3
   },
   DropdownItemText: {
-    color: "#222",
+    color: '#222',
     fontSize: 16
   },
   InputField: {
     marginTop: 20,
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 16,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center"
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   ButtonWrapper: {
     flex: 2,
-    alignItems: "center"
+    alignItems: 'center'
   }
-});
+})
 
-export default InfoTicketScreen;
+export default InfoTicketScreen

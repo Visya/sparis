@@ -1,15 +1,14 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import Title from "../components/Title";
-import Paragraph from "../components/Paragraph";
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import Title from '../components/Title'
+import Paragraph from '../components/Paragraph'
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Spåris"
-  };
+    title: 'Spåris'
+  }
 
-  render() {
-    const { navigate } = this.props.navigation;
+  render () {
     return (
       <View style={styles.ScreenWrapper}>
         <Title>Spåris appen</Title>
@@ -30,20 +29,20 @@ class HomeScreen extends React.Component {
           sl.se.
         </Paragraph>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   ScreenWrapper: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     padding: 20,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   Focus: {
-    fontWeight: "bold"
+    fontWeight: 'bold'
   }
-});
+})
 
-export default HomeScreen;
+export default HomeScreen

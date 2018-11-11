@@ -1,8 +1,8 @@
-import React from "react";
-import Title from "../components/Title";
-import Paragraph from "../components/Paragraph";
-import Button from "../components/Button";
-import { Image, View, StyleSheet, AsyncStorage } from "react-native";
+import React from 'react'
+import Title from '../components/Title'
+import Paragraph from '../components/Paragraph'
+import Button from '../components/Button'
+import { Image, View, StyleSheet, AsyncStorage } from 'react-native'
 
 class HomeScreen extends React.Component {
   constructor() {
@@ -19,7 +19,7 @@ class HomeScreen extends React.Component {
 
   static navigationOptions = {
     header: null
-  };
+  }
 
   async getStorageData() {
     const isEmpty = obj => {
@@ -110,7 +110,7 @@ class HomeScreen extends React.Component {
       <View style={styles.ScreenWrapper}>
         <Image
           style={styles.Image}
-          source={require("../assets/img/home.jpg")}
+          source={require('../assets/img/home.jpg')}
         />
         <Title center>Välkommen till Spåris</Title>
         <Paragraph center>
@@ -130,7 +130,7 @@ class HomeScreen extends React.Component {
           </Button>
         )}
       </View>
-    );
+    )
   }
 }
 
@@ -141,21 +141,21 @@ const styles = StyleSheet.create({
   },
   ScreenWrapper: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
     paddingLeft: 15,
     paddingRight: 15
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white'
   },
   Paragraph: {
-    textAlign: "center",
+    textAlign: 'center',
     padding: 20,
     paddingLeft: 40,
     paddingRight: 40,
     lineHeight: 20,
     opacity: 0.85
   }
-});
+})
 
-export default HomeScreen;
+export default HomeScreen

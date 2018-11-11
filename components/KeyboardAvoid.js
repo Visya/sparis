@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 
 class KeyboardAvoid extends Component {
   render () {
