@@ -23,3 +23,9 @@ This app is built during the hackathon Trainhack 2018 to make it easier to get c
 - JavaScript ✌️
 - React-Native ⚛️
 - 💖
+
+
+## Contributing
+Spåris is using Standard.js for linting.
+
+Run `npm run lint:fix` before pushing to automatically fix lint errors.
