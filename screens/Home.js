@@ -22,8 +22,16 @@ class HomeScreen extends React.Component {
   };
 
   async getStorageData() {
+    const isEmpty = obj => {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false;
+      }
+      return true;
+    };
+
     const getData = async () => {
       let data = {};
+
       try {
         const ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
         const bankData = (await AsyncStorage.getItem("bankData")) || "none";
@@ -38,17 +46,31 @@ class HomeScreen extends React.Component {
       } catch (error) {
         console.log(error.message);
       }
+
       return data;
     };
 
-    this.setState({
-      data: await getData(),
-      dataLoaded: true
-    });
+    const cleanData = await getData();
+
+    if (isEmpty(cleanData)) {
+      this.setState({
+        data: null,
+        dataLoaded: true
+      });
+    } else {
+      this.setState({
+        data: cleanData,
+        dataLoaded: true
+      });
+    }
   }
 
   validateData() {
     const { data } = this.state;
+
+    if (data === null) {
+      return false;
+    }
 
     const whitelistedFields = {
       slCard: ["cardNumber", "ticketType"],
@@ -82,12 +104,13 @@ class HomeScreen extends React.Component {
     } else {
       return true;
     }
+
+    return false;
   }
 
   render() {
-    const { dataLoaded, data } = this.state;
-
     const { navigate } = this.props.navigation;
+    const { dataLoaded } = this.state;
 
     return (
       <View style={styles.ScreenWrapper}>
@@ -127,7 +150,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    paddingLeft: 15,
+    paddingRight: 15
   },
   Paragraph: {
     textAlign: "center",
