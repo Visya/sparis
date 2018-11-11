@@ -50,43 +50,37 @@ class HomeScreen extends React.Component {
   validateData() {
     const { data } = this.state;
 
-    const { slCard, bankAccount, contactInfo } = data;
+    const whitelistedFields = {
+      slCard: ["cardNumber", "ticketType"],
+      bankAccount: ["account", "clearingNumber", "type"],
+      contactInfo: [
+        "address",
+        "city",
+        "co",
+        "country",
+        "email",
+        "firstname",
+        "id",
+        "phone",
+        "surname",
+        "zip"
+      ]
+    };
 
-    const { cardNumber, ticketType } = slCard;
-    const { type, clearingNumber, account } = bankAccount;
-    const {
-      address,
-      city,
-      co,
-      country,
-      email,
-      id,
-      phone,
-      firstname,
-      surname,
-      zip
-    } = contactInfo;
+    const valFailed = category => {
+      return whitelistedFields[category]
+        .map(field => data[category][field] !== "")
+        .includes(false);
+    };
 
     if (
-      cardNumber !== "" &&
-      ticketType !== "" &&
-      type !== "" &&
-      clearingNumber !== "" &&
-      account !== "" &&
-      address !== "" &&
-      city !== "" &&
-      co !== "" &&
-      country !== "" &&
-      email !== "" &&
-      id !== "" &&
-      phone !== "" &&
-      firstname !== "" &&
-      surname !== "" &&
-      zip !== ""
+      valFailed("slCard") ||
+      valFailed("bankAccount") ||
+      valFailed("contactInfo")
     ) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 
