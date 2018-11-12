@@ -90,22 +90,16 @@ class HomeScreen extends React.Component {
     };
 
     const valFailed = category => {
-      return whitelistedFields[category]
-        .map(field => data[category][field] !== "")
-        .includes(false);
+      return whitelistedFields[category].some(
+        field => data[category][field] !== ""
+      );
     };
 
-    if (
-      valFailed("slCard") ||
-      valFailed("bankAccount") ||
+    return (
+      valFailed("slCard") &&
+      valFailed("bankAccount") &&
       valFailed("contactInfo")
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-
-    return false;
+    );
   }
 
   render() {
