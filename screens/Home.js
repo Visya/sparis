@@ -2,15 +2,110 @@ import React from "react";
 import Title from "../components/Title";
 import Paragraph from "../components/Paragraph";
 import Button from "../components/Button";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet, AsyncStorage } from "react-native";
 
 class HomeScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: {},
+      dataLoaded: false
+    };
+  }
+
+  componentDidMount() {
+    this.getStorageData();
+  }
+
   static navigationOptions = {
     header: null
   };
 
+  async getStorageData() {
+    const isEmpty = obj => {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false;
+      }
+      return true;
+    };
+
+    const getData = async () => {
+      let data = {};
+
+      try {
+        const ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
+        const bankData = (await AsyncStorage.getItem("bankData")) || "none";
+        const contactData =
+          (await AsyncStorage.getItem("contactData")) || "none";
+
+        data = {
+          slCard: JSON.parse(ticketData),
+          bankAccount: JSON.parse(bankData),
+          contactInfo: JSON.parse(contactData)
+        };
+      } catch (error) {
+        console.log(error.message);
+      }
+
+      return data;
+    };
+
+    const cleanData = await getData();
+
+    if (isEmpty(cleanData)) {
+      this.setState({
+        data: null,
+        dataLoaded: true
+      });
+    } else {
+      this.setState({
+        data: cleanData,
+        dataLoaded: true
+      });
+    }
+  }
+
+  validateData() {
+    const { data } = this.state;
+
+    if (data === null) {
+      return false;
+    }
+
+    const whitelistedFields = {
+      slCard: ["cardNumber", "ticketType"],
+      bankAccount: ["account", "clearingNumber", "type"],
+      contactInfo: [
+        "address",
+        "city",
+        "co",
+        "country",
+        "email",
+        "firstname",
+        "id",
+        "phone",
+        "surname",
+        "zip"
+      ]
+    };
+
+    const valFailed = category => {
+      return whitelistedFields[category].some(
+        field => data[category][field] !== ""
+      );
+    };
+
+    return (
+      valFailed("slCard") &&
+      valFailed("bankAccount") &&
+      valFailed("contactInfo")
+    );
+  }
+
   render() {
     const { navigate } = this.props.navigation;
+    const { dataLoaded } = this.state;
+
     return (
       <View style={styles.ScreenWrapper}>
         <Image
@@ -25,7 +120,15 @@ class HomeScreen extends React.Component {
           fylla i formulären åt dig - smart va?
         </Paragraph>
 
-        <Button onClick={() => navigate("InfoTicket", {})}>Nu kör vi!</Button>
+        {dataLoaded && (
+          <Button
+            onClick={() =>
+              navigate(this.validateData() ? "Compensation" : "InfoTicket", {})
+            }
+          >
+            Nu kör vi!
+          </Button>
+        )}
       </View>
     );
   }
@@ -41,7 +144,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    paddingLeft: 15,
+    paddingRight: 15
   },
   Paragraph: {
     textAlign: "center",
