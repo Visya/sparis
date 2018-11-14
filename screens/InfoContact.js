@@ -1,44 +1,42 @@
-import React from "react";
+import React from 'react'
 import {
   View,
   ScrollView,
-  Text,
-  TouchableOpacity,
   TextInput,
   AsyncStorage,
   Image,
   StyleSheet
-} from "react-native";
-import KeyboardAvoid from "../components/KeyboardAvoid";
-import Button from "../components/Button";
-import Title from "../components/Title";
+} from 'react-native'
+import KeyboardAvoid from '../components/KeyboardAvoid'
+import Button from '../components/Button'
+import Title from '../components/Title'
 
 class InfoContactScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
+  constructor () {
+    super()
+    this.state = {}
   }
 
-  componentDidMount() {
-    this.getStorageData();
+  componentDidMount () {
+    this.getStorageData()
   }
 
   static navigationOptions = {
-    title: "Spåris",
-    headerTintColor: "white",
+    title: 'Spåris',
+    headerTintColor: 'white',
     headerBackTitle: null,
     headerStyle: {
-      backgroundColor: "#D26283"
+      backgroundColor: '#D26283'
     }
-  };
+  }
 
-  navigateAndSave() {
-    const { navigate } = this.props.navigation;
+  navigateAndSave () {
+    const { navigate } = this.props.navigation
 
     const saveContactData = async cardNumber => {
       try {
         await AsyncStorage.setItem(
-          "contactData",
+          'contactData',
           JSON.stringify({
             id: this.state.id,
             co: this.state.co,
@@ -51,30 +49,30 @@ class InfoContactScreen extends React.Component {
             country: this.state.country,
             email: this.state.email
           })
-        );
+        )
       } catch (error) {
         // Error retrieving data
-        console.log(error.message);
+        console.log(error.message)
       }
-    };
+    }
 
-    saveContactData();
-    navigate("Notifications", {});
+    saveContactData()
+    navigate('Notifications', {})
   }
 
-  async getStorageData() {
+  async getStorageData () {
     const getContactData = async () => {
-      let contactData = "";
+      let contactData = ''
       try {
-        contactData = (await AsyncStorage.getItem("contactData")) || "none";
+        contactData = (await AsyncStorage.getItem('contactData')) || 'none'
       } catch (error) {
         // Error retrieving data
-        console.log(error.message);
+        console.log(error.message)
       }
-      return JSON.parse(contactData);
-    };
+      return JSON.parse(contactData)
+    }
 
-    const contactData = await getContactData();
+    const contactData = await getContactData()
     const {
       address,
       city,
@@ -86,108 +84,108 @@ class InfoContactScreen extends React.Component {
       surname,
       firstname,
       zip
-    } = contactData;
+    } = contactData
 
     this.setState({
-      adress: address ? address : "",
-      city: city ? city : "",
-      co: co ? co : "",
-      country: country ? country : "",
-      email: email ? email : "",
-      id: id ? id : "",
-      phone: phone ? phone : "",
-      firstname: firstname ? firstname : "",
-      surname: surname ? surname : "",
-      zip: zip ? zip : ""
-    });
+      adress: address || '',
+      city: city || '',
+      co: co || '',
+      country: country || '',
+      email: email || '',
+      id: id || '',
+      phone: phone || '',
+      firstname: firstname || '',
+      surname: surname || '',
+      zip: zip || ''
+    })
   }
 
-  render() {
+  render () {
     return (
       <KeyboardAvoid style={styles.ScreenWrapper}>
         <ScrollView>
           <Image
             style={styles.Image}
-            source={require("../assets/img/contactinfo.png")}
+            source={require('../assets/img/contactinfo.png')}
           />
           <Title>Dina kontaktuppgifter</Title>
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Förnamn"
+            placeholder='Förnamn'
             onChangeText={text => this.setState({ firstname: text })}
             value={this.state.firstname}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Efternamn"
+            placeholder='Efternamn'
             onChangeText={text => this.setState({ surname: text })}
             value={this.state.surname}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Personnummer"
+            placeholder='Personnummer'
             onChangeText={text => this.setState({ id: text })}
             value={this.state.id}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Telefonnummer"
+            placeholder='Telefonnummer'
             onChangeText={text => this.setState({ phone: text })}
             value={this.state.phone}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="C/O"
+            placeholder='C/O'
             onChangeText={text => this.setState({ co: text })}
             value={this.state.co}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Gatuadress"
+            placeholder='Gatuadress'
             onChangeText={text => this.setState({ adress: text })}
             value={this.state.adress}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Postnummer"
+            placeholder='Postnummer'
             onChangeText={text => this.setState({ zip: text })}
             value={this.state.zip}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Ort"
+            placeholder='Ort'
             onChangeText={text => this.setState({ city: text })}
             value={this.state.city}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="Land"
+            placeholder='Land'
             onChangeText={text => this.setState({ country: text })}
             value={this.state.country}
           />
 
           <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
+            underlineColorAndroid='rgba(0,0,0,0)'
             style={styles.InputField}
-            placeholder="E-postadress"
+            placeholder='E-postadress'
             onChangeText={text => this.setState({ email: text })}
             value={this.state.email}
           />
@@ -195,40 +193,40 @@ class InfoContactScreen extends React.Component {
           <View
             style={{
               flex: 2,
-              alignItems: "center"
+              alignItems: 'center'
             }}
           >
             <Button onClick={() => this.navigateAndSave()}>Gå vidare</Button>
           </View>
         </ScrollView>
       </KeyboardAvoid>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   ScreenWrapper: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     padding: 20,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   Image: {
     width: 195,
     height: 195,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 32
   },
   InputField: {
     marginTop: 20,
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 16,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center"
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
-});
+})
 
-export default InfoContactScreen;
+export default InfoContactScreen

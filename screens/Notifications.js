@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   View,
   ScrollView,
@@ -7,81 +7,80 @@ import {
   AsyncStorage,
   Image,
   StyleSheet
-} from "react-native";
-import { ETravelTypesLabels, EMetroLines } from "../utils/enums";
-import Button from "../components/Button";
-import Title from "../components/Title";
-import Paragraph from "../components/Paragraph";
+} from 'react-native'
+import { ETravelTypesLabels, EMetroLines } from '../utils/enums'
+import Button from '../components/Button'
+import Title from '../components/Title'
+import Paragraph from '../components/Paragraph'
 
 class NotificationsScreen extends React.Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
-      method: "",
+      method: '',
       selectedLines: []
-    };
+    }
   }
 
-  componentDidMount() {
-    this.getStorageData();
+  componentDidMount () {
+    this.getStorageData()
   }
 
   static navigationOptions = {
-    title: "",
+    title: '',
     headerLeft: null
-  };
+  }
 
-  navigateAndSave() {
-    const { navigate } = this.props.navigation;
-    const { method } = this.state;
+  navigateAndSave () {
+    const { navigate } = this.props.navigation
 
     const saveNotificationData = async method => {
       try {
         await AsyncStorage.setItem(
-          "notificationData",
+          'notificationData',
           JSON.stringify({
             method: this.state.method,
             branches: JSON.stringify(this.state.selectedLines)
           })
-        );
+        )
       } catch (error) {
         // Error retrieving data
-        console.log(error.message);
+        console.log(error.message)
       }
-    };
+    }
 
-    saveNotificationData();
-    navigate("Compensation", {});
+    saveNotificationData()
+    navigate('Compensation', {})
   }
 
-  async getStorageData() {
+  async getStorageData () {
     const getNotificationData = async () => {
-      let notificationData = "";
+      let notificationData = ''
       try {
         notificationData =
-          (await AsyncStorage.getItem("notificationData")) || "none";
+          (await AsyncStorage.getItem('notificationData')) || 'none'
       } catch (error) {
         // Error retrieving data
-        console.log(error.message);
+        console.log(error.message)
       }
-      return JSON.parse(notificationData);
-    };
+      return JSON.parse(notificationData)
+    }
 
-    const notificationData = await getNotificationData();
-    const { method, branches } = notificationData;
+    const notificationData = await getNotificationData()
+    const { method, branches } = notificationData
 
     this.setState({
-      method: method ? method : "",
-      selectedLines: branches ? branches : []
-    });
+      method: method || '',
+      selectedLines: branches || []
+    })
   }
 
-  render() {
+  render () {
     return (
       <ScrollView style={styles.ScreenWrapper}>
         <Image
           style={styles.Image}
-          source={require("../assets/img/notifications.png")}
+          source={require('../assets/img/notifications.png')}
         />
         <Title>Notifikationer</Title>
         <Paragraph>
@@ -100,28 +99,28 @@ class NotificationsScreen extends React.Component {
                     styles.Choice,
                     {
                       borderColor:
-                        this.state.method === method ? "#222222" : "lightgrey",
+                        this.state.method === method ? '#222222' : 'lightgrey',
                       backgroundColor:
-                        this.state.method === method ? "#222222" : "white"
+                        this.state.method === method ? '#222222' : 'white'
                     }
                   ]}
                 >
                   <Text
                     style={{
-                      color: this.state.method === method ? "white" : "#222"
+                      color: this.state.method === method ? 'white' : '#222'
                     }}
                   >
                     {method[0]}
                   </Text>
                 </View>
               </TouchableOpacity>
-            );
+            )
           })}
         </View>
         {this.state.method ? (
           <TouchableOpacity
             onPress={() =>
-              this.setState({ dropdown: this.state.dropdown ? false : true })
+              this.setState({ dropdown: !this.state.dropdown })
             }
           >
             <View style={styles.DropdownButton}>
@@ -144,7 +143,7 @@ class NotificationsScreen extends React.Component {
                   onPress={() => {
                     this.setState(prevState => ({
                       selectedLines: [...prevState.selectedLines, line]
-                    }));
+                    }))
                   }}
                 >
                   <View
@@ -152,8 +151,8 @@ class NotificationsScreen extends React.Component {
                       styles.DropdownItem,
                       {
                         backgroundColor: this.state.selectedLines.includes(line)
-                          ? "#222"
-                          : "#f3f3f3"
+                          ? '#222'
+                          : '#f3f3f3'
                       }
                     ]}
                   >
@@ -163,8 +162,8 @@ class NotificationsScreen extends React.Component {
                         styles.DropdownItemText,
                         {
                           color: this.state.selectedLines.includes(line)
-                            ? "white"
-                            : "#222"
+                            ? 'white'
+                            : '#222'
                         }
                       ]}
                     >
@@ -172,7 +171,7 @@ class NotificationsScreen extends React.Component {
                     </Text>
                   </View>
                 </TouchableOpacity>
-              );
+              )
             })}
           </View>
         )}
@@ -189,26 +188,26 @@ class NotificationsScreen extends React.Component {
           <Button onClick={() => this.navigateAndSave()}>Gå vidare</Button>
         </View>
       </ScrollView>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   ScreenWrapper: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     padding: 20,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   Image: {
     width: 195,
     height: 195,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 32
   },
   ChoiceWrapper: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 20
   },
   Choice: {
@@ -217,33 +216,33 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingRight: 30,
     borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   DropdownButton: {
     marginTop: 20,
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 16,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center"
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   DropdownButtonDisabled: {
     marginTop: 20,
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 16,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
     opacity: 0.4
   },
   DropdownList: {
     borderWidth: 1,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 5,
     padding: 10,
     marginTop: 10
@@ -258,7 +257,7 @@ const styles = StyleSheet.create({
   },
   ButtonsWrapper: {
     flex: 2,
-    alignItems: "center"
+    alignItems: 'center'
   },
   SmallButton: {
     borderRadius: 5,
@@ -266,9 +265,9 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   SmallButtonText: {
-    color: "dodgerblue",
+    color: 'dodgerblue',
     fontSize: 16
   }
-});
+})
 
-export default NotificationsScreen;
+export default NotificationsScreen
