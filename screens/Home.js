@@ -5,106 +5,106 @@ import Button from '../components/Button'
 import { Image, View, StyleSheet, AsyncStorage } from 'react-native'
 
 class HomeScreen extends React.Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       data: {},
       dataLoaded: false
-    };
+    }
   }
 
-  componentDidMount() {
-    this.getStorageData();
+  componentDidMount () {
+    this.getStorageData()
   }
 
   static navigationOptions = {
     header: null
   }
 
-  async getStorageData() {
+  async getStorageData () {
     const isEmpty = obj => {
       for (var key in obj) {
-        if (obj.hasOwnProperty(key)) return false;
+        if (obj.hasOwnProperty(key)) return false
       }
-      return true;
-    };
+      return true
+    }
 
     const getData = async () => {
-      let data = {};
+      let data = {}
 
       try {
-        const ticketData = (await AsyncStorage.getItem("ticketData")) || "none";
-        const bankData = (await AsyncStorage.getItem("bankData")) || "none";
+        const ticketData = (await AsyncStorage.getItem('ticketData')) || 'none'
+        const bankData = (await AsyncStorage.getItem('bankData')) || 'none'
         const contactData =
-          (await AsyncStorage.getItem("contactData")) || "none";
+          (await AsyncStorage.getItem('contactData')) || 'none'
 
         data = {
           slCard: JSON.parse(ticketData),
           bankAccount: JSON.parse(bankData),
           contactInfo: JSON.parse(contactData)
-        };
+        }
       } catch (error) {
-        console.log(error.message);
+        console.log(error.message)
       }
 
-      return data;
-    };
+      return data
+    }
 
-    const cleanData = await getData();
+    const cleanData = await getData()
 
     if (isEmpty(cleanData)) {
       this.setState({
         data: null,
         dataLoaded: true
-      });
+      })
     } else {
       this.setState({
         data: cleanData,
         dataLoaded: true
-      });
+      })
     }
   }
 
-  validateData() {
-    const { data } = this.state;
+  validateData () {
+    const { data } = this.state
 
     if (data === null) {
-      return false;
+      return false
     }
 
     const whitelistedFields = {
-      slCard: ["cardNumber", "ticketType"],
-      bankAccount: ["account", "clearingNumber", "type"],
+      slCard: ['cardNumber', 'ticketType'],
+      bankAccount: ['account', 'clearingNumber', 'type'],
       contactInfo: [
-        "address",
-        "city",
-        "co",
-        "country",
-        "email",
-        "firstname",
-        "id",
-        "phone",
-        "surname",
-        "zip"
+        'address',
+        'city',
+        'co',
+        'country',
+        'email',
+        'firstname',
+        'id',
+        'phone',
+        'surname',
+        'zip'
       ]
-    };
+    }
 
     const valFailed = category => {
       return whitelistedFields[category].some(
-        field => data[category][field] !== ""
-      );
-    };
+        field => data[category][field] !== ''
+      )
+    }
 
     return (
-      valFailed("slCard") &&
-      valFailed("bankAccount") &&
-      valFailed("contactInfo")
-    );
+      valFailed('slCard') &&
+      valFailed('bankAccount') &&
+      valFailed('contactInfo')
+    )
   }
 
-  render() {
-    const { navigate } = this.props.navigation;
-    const { dataLoaded } = this.state;
+  render () {
+    const { navigate } = this.props.navigation
+    const { dataLoaded } = this.state
 
     return (
       <View style={styles.ScreenWrapper}>
@@ -123,7 +123,7 @@ class HomeScreen extends React.Component {
         {dataLoaded && (
           <Button
             onClick={() =>
-              navigate(this.validateData() ? "Compensation" : "InfoTicket", {})
+              navigate(this.validateData() ? 'Compensation' : 'InfoTicket', {})
             }
           >
             Nu kör vi!
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   ScreenWrapper: {
     flex: 1,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
