@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation'
 import HomeScreen from './screens/Home'
-import NotificationsScreen from './screens/Notifications'
+// import NotificationsScreen from './screens/Notifications'
 import InfoTicketScreen from './screens/InfoTicket'
 import About from './screens/About'
 import InfoBankScreen from './screens/InfoBank'
@@ -13,7 +13,7 @@ const App = createStackNavigator(
     Home: { screen: HomeScreen },
     InfoContact: { screen: InfoContactScreen },
     InfoBank: { screen: InfoBankScreen },
-    Notifications: { screen: NotificationsScreen },
+    // Notifications: { screen: NotificationsScreen },
     InfoTicket: { screen: InfoTicketScreen },
     About: { screen: About },
     Compensation: { screen: CompensationScreen },

@@ -57,7 +57,7 @@ class InfoContactScreen extends React.Component {
     }
 
     saveContactData()
-    navigate('Notifications', {})
+    navigate('Compensation', {})
   }
 
   async getStorageData () {
